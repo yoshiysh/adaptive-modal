@@ -19,6 +19,7 @@ struct ContentView: View {
         .padding()
         .adaptivePanel(
             isPresented: $isPresented,
+            barrierDismissible: false,
             onDismiss: { print("adaptive panel on dismissed") }
         ) {
             VStack(spacing: 32) {

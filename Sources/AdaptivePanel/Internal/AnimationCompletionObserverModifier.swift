@@ -2,7 +2,7 @@
 //  AnimationCompletionObserverModifier.swift
 //  AdaptivePanel
 //
-//  Created by yoshi on 2023/09/02.
+//  Created by yoshiysh on 2023/09/02.
 //
 
 import SwiftUI

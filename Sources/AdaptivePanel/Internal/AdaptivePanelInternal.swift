@@ -2,59 +2,13 @@
 //  AdaptivePanelInternal.swift
 //  AdaptivePanel
 //
-//  Created by yoshi on 2023/09/02.
+//  Created by yoshiysh on 2023/09/03.
 //
 
 import SwiftUI
 
-struct AdaptivePanel<A, T>: View, @unchecked Sendable where A: View, T: View {
-    @State private var disableAnimations = true
-    @State private var isPresenteContainer = false
-    @State private var isPresentedContnet = false
-    @State private var opacity = 0.0
-
-    @Binding private var isPresented: Bool
-    private let targetView: T
-    private let content: A
-    private let onDismiss: (() -> Void)?
-    
-    private let minOpacity = 0.0
-    private let maxOpacity = 0.6
-
-    var body: some View {
-        targetView
-            .fullScreenCover(
-                isPresented: $isPresenteContainer,
-                content: fullScreenCoverView
-            )
-            .onChange(of: isPresented) { state in
-                if state {
-                    isPresenteContainer = true
-                } else {
-                    onDismissAnimation()
-                }
-            }
-            .transaction { transaction in
-                transaction.disablesAnimations = disableAnimations
-            }
-    }
-
-    init(
-        targetView: T,
-        isPresented: Binding<Bool>,
-        onDismiss: (() -> Void)? = nil,
-        content: @escaping () -> A
-    ) {
-        self.targetView = targetView
-        _isPresented = isPresented
-        self.onDismiss = onDismiss
-        self.content = content()
-
-    }
-}
-
 // MARK: Private Function {
-private extension AdaptivePanel {
+extension AdaptivePanel {
     @MainActor
     func onDismissAnimation() {
         withAnimation(.easeIn) {
@@ -98,7 +52,9 @@ private extension AdaptivePanel {
             Color.black.opacity(opacity)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    onDismissAnimation()
+                    if !barrierDismissible {
+                        onDismissAnimation()
+                    }
                 }
 
             VStack {
