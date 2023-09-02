@@ -11,8 +11,14 @@ public extension View {
     @MainActor
     func adaptivePanel(
         isPresented: Binding<Bool>,
-        @ViewBuilder content: @escaping () -> some View
+        @ViewBuilder content: @escaping () -> some View,
+        onDismiss: (() -> Void)? = nil
     ) -> some View {
-        content()
+        AdaptivePanel(
+            targetView: self,
+            isPresented: isPresented,
+            content: content,
+            onDismiss: onDismiss
+        )
     }
 }
