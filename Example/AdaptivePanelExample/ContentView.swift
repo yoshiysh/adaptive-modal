@@ -17,7 +17,10 @@ struct ContentView: View {
             buttonLabel: "Press Me"
         )
         .padding()
-        .adaptivePanel(isPresented: $isPresented) {
+        .adaptivePanel(
+            isPresented: $isPresented,
+            onDismiss: { print("adaptive panel on dismissed") }
+        ) {
             VStack(spacing: 32) {
                 contentView(
                     "Adaptive Panel World!",
@@ -38,8 +41,6 @@ struct ContentView: View {
                         )
                 }
             }
-        } onDismiss: {
-            print("adaptive panel on dismissed")
         }
     }
 }

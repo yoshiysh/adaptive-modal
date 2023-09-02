@@ -42,18 +42,20 @@ struct AdaptivePanel<A, T>: View, @unchecked Sendable where A: View, T: View {
     init(
         targetView: T,
         isPresented: Binding<Bool>,
-        content: @escaping () -> A,
-        onDismiss: (() -> Void)? = nil
+        onDismiss: (() -> Void)? = nil,
+        content: @escaping () -> A
     ) {
         self.targetView = targetView
         _isPresented = isPresented
-        self.content = content()
         self.onDismiss = onDismiss
+        self.content = content()
+
     }
 }
 
 // MARK: Private Function {
 private extension AdaptivePanel {
+    @MainActor
     func onDismissAnimation() {
         withAnimation(.easeIn) {
             opacity = minOpacity
@@ -61,6 +63,7 @@ private extension AdaptivePanel {
         }
     }
 
+    @MainActor
     func onEndDismissAnimation() {
         disableAnimations = true
         isPresenteContainer = false
@@ -68,6 +71,7 @@ private extension AdaptivePanel {
         onDismiss?()
     }
     
+    @MainActor
     func fullScreenCoverView() -> some View {
         fullScreenCoverContent()
             .background(BackgroundView(backgroundColor: .clear))
@@ -88,6 +92,7 @@ private extension AdaptivePanel {
             }
     }
     
+    @MainActor
     func fullScreenCoverContent() -> some View {
         ZStack {
             Color.black.opacity(opacity)
@@ -105,6 +110,7 @@ private extension AdaptivePanel {
         }
     }
     
+    @MainActor
     func panelView() -> some View {
         content
             .frame(maxWidth: .infinity)
