@@ -17,7 +17,9 @@ struct AdaptivePanel<Content: View>: View, @unchecked Sendable {
     let targetView: AnyView
     var content: Content
     let onDismiss: (() -> Void)?
+
     let barrierDismissible: Bool
+    let fraction: CGFloat = 0.9
     
     let minOpacity = 0.0
     let maxOpacity = 0.6

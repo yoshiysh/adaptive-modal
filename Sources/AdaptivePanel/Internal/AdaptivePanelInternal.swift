@@ -24,7 +24,7 @@ extension AdaptivePanel {
         isPresented = false
         onDismiss?()
     }
-    
+
     @MainActor
     func fullScreenCoverView() -> some View {
         fullScreenCoverContent()
@@ -45,14 +45,14 @@ extension AdaptivePanel {
                 }
             }
     }
-    
+
     @MainActor
     func fullScreenCoverContent() -> some View {
         ZStack {
             Color.black.opacity(opacity)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    if !barrierDismissible {
+                    if barrierDismissible {
                         onDismissAnimation()
                     }
                 }
@@ -65,11 +65,11 @@ extension AdaptivePanel {
             }
         }
     }
-    
+
     @MainActor
     func panelView() -> some View {
         content
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, idealHeight: maxHeight())
             .background(
                 RoundedRectangleShape(
                     cornerRadius: 16,
@@ -79,5 +79,10 @@ extension AdaptivePanel {
                 .ignoresSafeArea()
             )
             .transition(.move(edge: .bottom))
+    }
+
+    @MainActor
+    func maxHeight() -> CGFloat {
+        UIScreen.main.bounds.height * fraction
     }
 }

@@ -8,10 +8,17 @@
 import SwiftUI
 
 public extension View {
+    /// - Parameters:
+    ///   - isPresented: A binding to a Boolean value that determines whether
+    ///     to present the sheet.
+    ///   - barrierDismissible: if true, then  tapping this background dismiss,
+    ///     if false,  then tapping the background has no effect.
+    ///   - onDismiss: The closure to execute when dismissing the modal view.
+    ///   - content: A closure that returns the content of the modal view.
     @MainActor
     func adaptivePanel(
         isPresented: Binding<Bool>,
-        barrierDismissible: Bool = false,
+        barrierDismissible: Bool = true,
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> some View
     ) -> some View {
