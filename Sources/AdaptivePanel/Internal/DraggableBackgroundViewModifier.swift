@@ -13,10 +13,11 @@ struct DraggableBackgroundViewModifier: ViewModifier {
 
     private let cancelable: Bool
     private let onDismiss: () -> Void
-    private let fraction: Double = 1.1
+    private var translatedHeight: Double { contentHeight * 1.1 }
 
     func body(content: Content) -> some View {
-        contentView(content: content)
+        content
+            .contentHeight { contentHeight = $0 }
             .offset(translation.height > 0 ? translation : .zero)
             .upperRoundedBackground(offset: $translation)
             .gesture(
@@ -29,7 +30,7 @@ struct DraggableBackgroundViewModifier: ViewModifier {
                             withAnimation(.interactiveSpring) {
                                 translation = CGSize(
                                     width: translation.width,
-                                    height: contentHeight * fraction
+                                    height: translatedHeight
                                 )
                             }
                         } else {
@@ -40,7 +41,7 @@ struct DraggableBackgroundViewModifier: ViewModifier {
                     }
             )
             .onAnimationCompleted(for: translation.height) {
-                if translation.height == contentHeight * fraction {
+                if translation.height == translatedHeight {
                     onDismiss()
                 }
             }

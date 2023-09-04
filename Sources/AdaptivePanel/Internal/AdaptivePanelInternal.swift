@@ -11,8 +11,10 @@ extension AdaptivePanel {
     @MainActor
     func onDismissAnimation() {
         withAnimation(.easeIn) {
-            opacity = minOpacity
-            isPresentedContnet = false
+            translation = CGSize(
+                width: translation.width,
+                height: translatedHeight
+            )
         }
     }
 
@@ -28,17 +30,24 @@ extension AdaptivePanel {
     func fullScreenCoverView() -> some View {
         fullScreenCoverContent()
             .background(BackgroundView(backgroundColor: .clear))
-            .onAnimationCompleted(for: opacity) {
-                if opacity == minOpacity {
+            .onAnimationCompleted(for: translation.height) {
+                if translation.height == translatedHeight {
+                    isPresentedContnet = false
                     onEndDismissAnimation()
+                }
+            } onValueChanged: { value in
+                if isPresentedContnet {
+                    opacity = min(
+                        maxOpacity,
+                        ((translatedHeight - value) / translatedHeight) * maxOpacity
+                    )
                 }
             }
             .onAppear {
                 disableAnimations = false
-                opacity = minOpacity
-                isPresentedContnet = false
+                translation = .zero
 
-                withAnimation(.easeIn) {
+                withAnimation(.easeOut) {
                     opacity = maxOpacity
                     isPresentedContnet = true
                 }
@@ -63,6 +72,8 @@ extension AdaptivePanel {
                         .frame(minHeight: minHeight())
                     
                     panelView()
+                        .contentHeight { contentHeight = $0 }
+                        .offset(translation)
                         .layoutPriority(1)
                 }
                 .transition(.move(edge: .bottom).animation(.smooth))

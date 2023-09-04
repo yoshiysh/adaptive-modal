@@ -22,24 +22,32 @@ struct AnimationCompletionObserverModifier<Value>: AnimatableModifier where Valu
 
     /// The completion callback which is called once the animation completes.
     private var completion: () -> Void
+    
+    private var onValueChanged: ((Value) -> Void)?
 
     init(
         observedValue: Value,
-        completion: @escaping () -> Void
+        completion: @escaping () -> Void,
+        onValueChanged: ((Value) -> Void)?
     ) {
         self.completion = completion
         self.animatableData = observedValue
+        self.onValueChanged = onValueChanged
         targetValue = observedValue
     }
 
     /// Verifies whether the current animation is finished and calls the completion callback if true.
     private func notifyCompletionIfFinished() {
+        DispatchQueue.main.async {
+            onValueChanged?(animatableData)
+        }
+
         guard animatableData == targetValue else { return }
 
         /// Dispatching is needed to take the next runloop for the completion callback.
         /// This prevents errors like "Modifying state during view update, this will cause undefined behavior."
         DispatchQueue.main.async {
-            self.completion()
+            completion()
         }
     }
 
@@ -59,6 +67,28 @@ extension View {
         for value: Value,
         completion: @escaping () -> Void
     ) -> ModifiedContent<Self, AnimationCompletionObserverModifier<Value>> {
-        return modifier(AnimationCompletionObserverModifier(observedValue: value, completion: completion))
+        modifier(AnimationCompletionObserverModifier(
+            observedValue: value,
+            completion: completion,
+            onValueChanged: nil
+        ))
+    }
+    
+    /// Calls the completion handler whenever an animation on the given value completes.
+    /// - Parameters:
+    ///   - value: The value to observe for animations.
+    ///   - completion: The completion callback to call once the animation completes.
+    ///   - onValueChanged: The callback to call the animation value changed.
+    /// - Returns: A modified `View` instance with the observer attached.
+    func onAnimationCompleted<Value: VectorArithmetic>(
+        for value: Value,
+        completion: @escaping () -> Void,
+        onValueChanged: @escaping (Value) -> Void
+    ) -> ModifiedContent<Self, AnimationCompletionObserverModifier<Value>> {
+        modifier(AnimationCompletionObserverModifier(
+            observedValue: value,
+            completion: completion,
+            onValueChanged: onValueChanged
+        ))
     }
 }

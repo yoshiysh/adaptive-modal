@@ -12,6 +12,8 @@ struct AdaptivePanel<Content: View>: View, @unchecked Sendable {
     @State var isPresenteContainer = false
     @State var isPresentedContnet = false
     @State var opacity = 0.0
+    @State var translation: CGSize = .zero
+    @State var contentHeight: Double = .zero
 
     @Binding var isPresented: Bool
     let targetView: AnyView
@@ -23,6 +25,7 @@ struct AdaptivePanel<Content: View>: View, @unchecked Sendable {
     let fraction: CGFloat = 0.95
     let minOpacity = 0.0
     let maxOpacity = 0.6
+    var translatedHeight: Double { contentHeight * 1.1 }
 
     var body: some View {
         targetView
