@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DraggableViewModifier: ViewModifier {
+struct DraggableBackgroundViewModifier: ViewModifier {
     @State var translation: CGSize = .zero
     
     let cancelable: Bool
@@ -15,8 +15,8 @@ struct DraggableViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .offset(translation)
-            .backgroundUpperRounded(offset: $translation)
+            .offset(translation.height > 0 ? translation : .zero)
+            .upperRoundedBackground(offset: $translation)
             .gesture(
                 DragGesture()
                     .onChanged { gesture in
@@ -59,13 +59,14 @@ struct DraggableViewModifier: ViewModifier {
     }
 }
 
+// MARK: View Extension
 extension View {
     @MainActor
-    func draggable(
+    func draggableBackground(
         cancelable: Bool,
         onDismiss: @escaping () -> Void
     ) -> some View {
-        modifier(DraggableViewModifier(
+        modifier(DraggableBackgroundViewModifier(
             cancelable: cancelable, 
             onDismiss: onDismiss
         ))

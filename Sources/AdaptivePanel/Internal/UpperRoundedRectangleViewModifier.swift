@@ -2,7 +2,7 @@
 //  UpperRoundedRectangleViewModifier.swift
 //  AdaptivePanel
 //
-//  Created by yoshi on 2023/09/04.
+//  Created by yoshiysh on 2023/09/04.
 //
 
 import SwiftUI
@@ -20,14 +20,15 @@ struct UpperRoundedRectangleViewModifier: ViewModifier {
                 )
                 .offset(offset)
                 .fill(Color(UIColor.secondarySystemBackground))
+                .ignoresSafeArea()
             )
-            .ignoresSafeArea()
     }
 }
 
+// MARK: View Extension
 extension View {
     @MainActor
-    func backgroundUpperRounded(
+    func upperRoundedBackground(
         cornerRadius: CGFloat = 16,
         offset: Binding<CGSize> = .constant(.zero)
     ) -> some View {

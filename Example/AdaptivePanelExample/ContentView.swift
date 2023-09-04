@@ -25,36 +25,7 @@ struct ContentView: View {
             cancelable: true,
             onDismiss: { print("adaptive panel on dismissed") }
         ) {
-            VStack {
-                VStack(spacing: 32) {
-                    contentView(
-                        "Hello Adaptive Panel",
-                        buttonLabel: "Dismiss"
-                    )
-                    
-                    Toggle(isOn: $isOn) {
-                        Text("Toggle")
-                    }
-                    
-                    TextField("TextField", text: $text)
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 32)
-                
-                Button {} label: {
-                    Text("Button")
-                        .font(.title2)
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(
-                            Rectangle()
-                                .fill(.green)
-                                .ignoresSafeArea()
-                        )
-                }
-            }
-            .padding(.top, 32)
+            panelContent()
         }
     }
 }
@@ -82,6 +53,40 @@ private extension ContentView {
                     )
             }
         }
+    }
+    
+    @MainActor
+    func panelContent() -> some View {
+        VStack {
+            VStack(spacing: 32) {
+                contentView(
+                    "Hello Adaptive Panel",
+                    buttonLabel: "Dismiss"
+                )
+                
+                Toggle(isOn: $isOn) {
+                    Text("Toggle")
+                }
+                
+                TextField("TextField", text: $text)
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 32)
+            
+            Button {} label: {
+                Text("Button")
+                    .font(.title2)
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(
+                        Rectangle()
+                            .fill(.green)
+                            .ignoresSafeArea()
+                    )
+            }
+        }
+        .padding(.top, 32)
     }
 }
 

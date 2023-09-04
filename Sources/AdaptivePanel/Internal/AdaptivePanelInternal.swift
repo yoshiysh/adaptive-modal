@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// MARK: Private Function {
 extension AdaptivePanel {
     @MainActor
     func onDismissAnimation() {
@@ -49,7 +48,8 @@ extension AdaptivePanel {
     @MainActor
     func fullScreenCoverContent() -> some View {
         ZStack {
-            Color.black.opacity(opacity)
+            Color.black
+                .opacity(opacity)
                 .ignoresSafeArea()
                 .onTapGesture {
                     if cancelable {
@@ -75,12 +75,12 @@ extension AdaptivePanel {
     func panelView() -> some View {
         if draggable {
             panelContent()
-                .draggable(cancelable: cancelable) {
+                .draggableBackground(cancelable: cancelable) {
                     onDismissAnimation()
                 }
         } else {
             panelContent()
-                .backgroundUpperRounded()
+                .upperRoundedBackground()
         }
     }
     

@@ -11,14 +11,22 @@ struct RoundedRectangleShape: Shape {
     let radius: CGFloat
     let corners: UIRectCorner
 
-    init(cornerRadius: CGFloat, corners: UIRectCorner) {
+    init(
+        cornerRadius: CGFloat,
+        corners: UIRectCorner
+    ) {
         radius = cornerRadius
         self.corners = corners
     }
 
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(
-            roundedRect: rect,
+            roundedRect: .init(
+                x: rect.origin.x,
+                y: rect.origin.y,
+                width: rect.width,
+                height: rect.height + 1000
+            ),
             byRoundingCorners: corners,
             cornerRadii: CGSize(width: radius, height: radius)
         )
