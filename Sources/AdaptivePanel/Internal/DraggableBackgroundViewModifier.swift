@@ -13,6 +13,7 @@ struct DraggableBackgroundViewModifier: ViewModifier {
 
     private let cancelable: Bool
     private let onDismiss: () -> Void
+    private let onTranslationHeightChanged: (Double) -> Void
     private var translatedHeight: Double { contentHeight * 1.1 }
 
     func body(content: Content) -> some View {
@@ -40,6 +41,9 @@ struct DraggableBackgroundViewModifier: ViewModifier {
                         }
                     }
             )
+            .onChange(of: translation.height) { value in
+                onTranslationHeightChanged(value)
+            }
             .onAnimationCompleted(for: translation.height) {
                 if translation.height == translatedHeight {
                     onDismiss()
@@ -49,10 +53,12 @@ struct DraggableBackgroundViewModifier: ViewModifier {
     
     init(
         cancelable: Bool,
-        onDismiss: @escaping () -> Void
+        onDismiss: @escaping () -> Void,
+        onTranslationHeightChanged: @escaping (Double) -> Void
     ) {
         self.cancelable = cancelable
         self.onDismiss = onDismiss
+        self.onTranslationHeightChanged = onTranslationHeightChanged
     }
 }
 
@@ -61,11 +67,13 @@ extension View {
     @MainActor
     func draggableBackground(
         cancelable: Bool,
-        onDismiss: @escaping () -> Void
+        onDismiss: @escaping () -> Void,
+        onTranslationHeightChanged: @escaping (Double) -> Void
     ) -> some View {
         modifier(DraggableBackgroundViewModifier(
             cancelable: cancelable, 
-            onDismiss: onDismiss
+            onDismiss: onDismiss,
+            onTranslationHeightChanged: onTranslationHeightChanged
         ))
     }
 }

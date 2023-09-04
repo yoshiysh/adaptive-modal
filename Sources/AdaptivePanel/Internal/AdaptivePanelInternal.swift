@@ -36,9 +36,9 @@ extension AdaptivePanel {
                     onEndDismissAnimation()
                 }
             } onValueChanged: { value in
-                if isPresentedContnet {
+                if !translation.height.isZero {
                     opacity = min(
-                        maxOpacity,
+                        opacity,
                         ((translatedHeight - value) / translatedHeight) * maxOpacity
                     )
                 }
@@ -88,6 +88,11 @@ extension AdaptivePanel {
             panelContent()
                 .draggableBackground(cancelable: cancelable) {
                     onDismissAnimation()
+                } onTranslationHeightChanged: { value in
+                    opacity = min(
+                        maxOpacity,
+                        ((translatedHeight - value) / translatedHeight) * maxOpacity
+                    )
                 }
         } else {
             panelContent()
