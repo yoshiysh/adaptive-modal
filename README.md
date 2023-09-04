@@ -24,7 +24,7 @@ https://github.com/yoshiysh/adaptive-panel/assets/22577999/ccc33e9d-190c-4453-a0
 ### Package.swift
 ```swift
 dependencies: [
-  .package(url: "https://github.com/yoshiysh/adaptive-panel", .upToNextMajor(from: "0.1.0")),
+  .package(url: "https://github.com/yoshiysh/adaptive-panel", .upToNextMajor(from: "0.3.1")),
 ],
 ```
 
