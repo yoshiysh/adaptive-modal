@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct UpperRoundedRectangleViewModifier: ViewModifier {
-    let cornerRadius: CGFloat
-    @Binding var offset: CGSize
+    @Binding private var offset: CGSize
+    private let cornerRadius: CGFloat
     
     func body(content: Content) -> some View {
         content
@@ -23,6 +23,14 @@ struct UpperRoundedRectangleViewModifier: ViewModifier {
                 .ignoresSafeArea()
             )
     }
+
+    init(
+        offset: Binding<CGSize>,
+        cornerRadius: CGFloat
+    ) {
+        _offset = offset
+        self.cornerRadius = cornerRadius
+    }
 }
 
 // MARK: View Extension
@@ -33,8 +41,8 @@ extension View {
         offset: Binding<CGSize> = .constant(.zero)
     ) -> some View {
         modifier(UpperRoundedRectangleViewModifier(
-            cornerRadius: cornerRadius,
-            offset: offset
+            offset: offset, 
+            cornerRadius: cornerRadius
         ))
     }
 }
