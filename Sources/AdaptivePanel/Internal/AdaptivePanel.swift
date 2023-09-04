@@ -15,11 +15,11 @@ struct AdaptivePanel<Content: View>: View, @unchecked Sendable {
 
     @Binding var isPresented: Bool
     let targetView: AnyView
-    var content: Content
+    var content: () -> Content
     let onDismiss: (() -> Void)?
 
     let barrierDismissible: Bool
-    let fraction: CGFloat = 0.9
+    let fraction: CGFloat = 0.95
     
     let minOpacity = 0.0
     let maxOpacity = 0.6
@@ -53,6 +53,6 @@ struct AdaptivePanel<Content: View>: View, @unchecked Sendable {
         _isPresented = isPresented
         self.barrierDismissible = barrierDismissible
         self.onDismiss = onDismiss
-        self.content = content()
+        self.content = content
     }
 }

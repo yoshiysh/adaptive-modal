@@ -10,6 +10,8 @@ import AdaptivePanel
 
 struct ContentView: View {
     @State var isPresented = false
+    @State var isOn = false
+    @State var text: String = ""
     
     var body: some View {
         contentView(
@@ -22,13 +24,22 @@ struct ContentView: View {
             barrierDismissible: false,
             onDismiss: { print("adaptive panel on dismissed") }
         ) {
-            VStack(spacing: 32) {
-                contentView(
-                    "Adaptive Panel World!",
-                    buttonLabel: "dismiss"
-                )
-                .padding()
-
+            VStack {
+                VStack(spacing: 32) {
+                    contentView(
+                        "Hello Adaptive Panel",
+                        buttonLabel: "Dismiss"
+                    )
+                    
+                    Toggle(isOn: $isOn) {
+                        Text("Toggle")
+                    }
+                    
+                    TextField("TextField", text: $text)
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 32)
+                
                 Button {} label: {
                     Text("Button")
                         .font(.title2)
@@ -42,6 +53,7 @@ struct ContentView: View {
                         )
                 }
             }
+            .padding(.top, 32)
         }
     }
 }

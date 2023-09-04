@@ -56,20 +56,24 @@ extension AdaptivePanel {
                         onDismissAnimation()
                     }
                 }
-
-            VStack {
-                Spacer()
-                if isPresentedContnet {
+            
+            if isPresentedContnet {
+                VStack {
+                    Spacer()
+                        .frame(minHeight: minHeight())
+                    
                     panelView()
+                        .layoutPriority(1)
                 }
+                .transition(.move(edge: .bottom).animation(.smooth))
             }
         }
     }
 
     @MainActor
     func panelView() -> some View {
-        content
-            .frame(maxWidth: .infinity, idealHeight: maxHeight())
+        content()
+            .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangleShape(
                     cornerRadius: 16,
@@ -78,11 +82,15 @@ extension AdaptivePanel {
                 .fill(Color(UIColor.secondarySystemBackground))
                 .ignoresSafeArea()
             )
-            .transition(.move(edge: .bottom))
     }
 
     @MainActor
     func maxHeight() -> CGFloat {
         UIScreen.main.bounds.height * fraction
+    }
+
+    @MainActor
+    func minHeight() -> CGFloat {
+        UIScreen.main.bounds.height - maxHeight()
     }
 }
