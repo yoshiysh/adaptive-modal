@@ -52,7 +52,7 @@ extension AdaptivePanel {
             Color.black.opacity(opacity)
                 .ignoresSafeArea()
                 .onTapGesture {
-                    if barrierDismissible {
+                    if cancelable {
                         onDismissAnimation()
                     }
                 }
@@ -71,17 +71,22 @@ extension AdaptivePanel {
     }
 
     @MainActor
+    @ViewBuilder
     func panelView() -> some View {
-        content()
-            .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangleShape(
-                    cornerRadius: 16,
-                    corners: [.topLeft, .topRight]
-                )
-                .fill(Color(UIColor.secondarySystemBackground))
-                .ignoresSafeArea()
-            )
+        if draggable {
+            panelContent()
+                .draggable(cancelable: cancelable) {
+                    onDismissAnimation()
+                }
+        } else {
+            panelContent()
+                .backgroundUpperRounded()
+        }
+    }
+    
+    @MainActor
+    func panelContent() -> some View {
+        content().frame(maxWidth: .infinity)
     }
 
     @MainActor
