@@ -98,7 +98,7 @@
 			packageProductDependencies = (
 				922930D42AA9D64400D5C5F8 /* AdaptiveModal */,
 			);
-			productName = AdaptivePanelExample;
+			productName = AdaptiveModalExample;
 			productReference = 92DB9A4F2AA332E8009D8B7E /* AdaptiveModalExample.app */;
 			productType = "com.apple.product-type.application";
 		};
