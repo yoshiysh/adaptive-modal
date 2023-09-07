@@ -1,13 +1,13 @@
 //
-//  AdaptivePanelViewModifier.swift
-//  AdaptivePanel
+//  AdaptiveModalViewModifier.swift
+//  AdaptiveModal
 //
 //  Created by yoshiysh on 2023/09/02.
 //
 
 import SwiftUI
 
-struct AdaptivePanelViewModifier<Body: View>: ViewModifier {
+struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
     @State var disableAnimations = true
     @State var isPresenteContainer = false
     @State var isPresentedContnet = false

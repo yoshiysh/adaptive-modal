@@ -1,6 +1,6 @@
 //
-//  AdaptivePanel.swift
-//  AdaptivePanel
+//  AdaptiveModal.swift
+//  AdaptiveModal
 //
 //  Created by yoshiysh on 2023/09/02.
 //
@@ -18,14 +18,14 @@ public extension View {
     ///   - onDismiss: The closure to execute when dismissing the modal view.
     ///   - content: A closure that returns the content of the modal view.
     @MainActor
-    func adaptivePanel(
+    func adaptiveModal(
         isPresented: Binding<Bool>,
         draggable: Bool = true,
         cancelable: Bool = true,
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> some View
     ) -> some View {
-        modifier(AdaptivePanelViewModifier(
+        modifier(AdaptiveModalViewModifier(
             isPresented: isPresented,
             draggable: draggable,
             cancelable: cancelable,

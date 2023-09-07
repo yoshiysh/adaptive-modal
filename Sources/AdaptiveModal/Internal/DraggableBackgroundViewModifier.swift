@@ -1,6 +1,6 @@
 //
 //  DraggableViewModifier.swift
-//  AdaptivePanel
+//  AdaptiveModal
 //
 //  Created by yoshiysh on 2023/09/04.
 //

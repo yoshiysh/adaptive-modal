@@ -1,13 +1,13 @@
 //
-//  AdaptivePanelViewModifier.swift
-//  AdaptivePanel
+//  AdaptiveModalViewModifier.swift
+//  AdaptiveModal
 //
 //  Created by yoshiysh on 2023/09/03.
 //
 
 import SwiftUI
 
-extension AdaptivePanelViewModifier {
+extension AdaptiveModalViewModifier {
     @MainActor
     func onDismissAnimation() {
         withAnimation(.easeIn) {
@@ -71,7 +71,7 @@ extension AdaptivePanelViewModifier {
                     Spacer()
                         .frame(minHeight: minHeight())
                     
-                    panelView()
+                    modalView()
                         .contentHeight { contentHeight = $0 }
                         .offset(translation)
                         .layoutPriority(1)
@@ -83,9 +83,9 @@ extension AdaptivePanelViewModifier {
 
     @MainActor
     @ViewBuilder
-    func panelView() -> some View {
+    func modalView() -> some View {
         if draggable {
-            panelContent()
+            modalContent()
                 .draggableBackground(cancelable: cancelable) {
                     onDismissAnimation()
                 } onTranslationHeightChanged: { value in
@@ -95,13 +95,13 @@ extension AdaptivePanelViewModifier {
                     )
                 }
         } else {
-            panelContent()
+            modalContent()
                 .upperRoundedBackground()
         }
     }
     
     @MainActor
-    func panelContent() -> some View {
+    func modalContent() -> some View {
         body().frame(maxWidth: .infinity)
     }
 

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import AdaptivePanel
+import AdaptiveModal
 
 struct ContentView: View {
     @State var isPresented = false
@@ -19,11 +19,11 @@ struct ContentView: View {
             buttonLabel: "Press Me"
         )
         .padding()
-        .adaptivePanel(
+        .adaptiveModal(
             isPresented: $isPresented,
             draggable: true,
             cancelable: true,
-            onDismiss: { print("adaptive panel on dismissed") }
+            onDismiss: { print("adaptive modal on dismissed") }
         ) {
             panelContent()
         }
@@ -60,7 +60,7 @@ private extension ContentView {
         VStack {
             VStack(spacing: 32) {
                 contentView(
-                    "Hello Adaptive Panel",
+                    "Hello Adaptive Modal",
                     buttonLabel: "Dismiss"
                 )
                 

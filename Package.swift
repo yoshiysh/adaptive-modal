@@ -3,15 +3,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "adaptive-panel",
+    name: "adaptive-modal",
     platforms: [.iOS(.v14)],
     products: [
-        .library(name: "AdaptivePanel", targets: ["AdaptivePanel"])
+        .library(name: "AdaptiveModal", targets: ["AdaptiveModal"])
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
     ],
     targets: [
-        .target(name: "AdaptivePanel")
+        .target(name: "AdaptiveModal")
     ]
 )

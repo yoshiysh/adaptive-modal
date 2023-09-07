@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		92A6F9862AA33A4C0099BE73 /* AdaptivePanel in Frameworks */ = {isa = PBXBuildFile; productRef = 92A6F9852AA33A4C0099BE73 /* AdaptivePanel */; };
+		922930D52AA9D64400D5C5F8 /* AdaptiveModal in Frameworks */ = {isa = PBXBuildFile; productRef = 922930D42AA9D64400D5C5F8 /* AdaptiveModal */; };
 		92DB9A532AA332E8009D8B7E /* AdaptivePanelExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB9A522AA332E8009D8B7E /* AdaptivePanelExampleApp.swift */; };
 		92DB9A552AA332E8009D8B7E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB9A542AA332E8009D8B7E /* ContentView.swift */; };
 		92DB9A572AA332E9009D8B7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92DB9A562AA332E9009D8B7E /* Assets.xcassets */; };
@@ -28,7 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92A6F9862AA33A4C0099BE73 /* AdaptivePanel in Frameworks */,
+				922930D52AA9D64400D5C5F8 /* AdaptiveModal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +96,7 @@
 			);
 			name = AdaptivePanelExample;
 			packageProductDependencies = (
-				92A6F9852AA33A4C0099BE73 /* AdaptivePanel */,
+				922930D42AA9D64400D5C5F8 /* AdaptiveModal */,
 			);
 			productName = AdaptivePanelExample;
 			productReference = 92DB9A4F2AA332E8009D8B7E /* AdaptivePanelExample.app */;
@@ -363,9 +363,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		92A6F9852AA33A4C0099BE73 /* AdaptivePanel */ = {
+		922930D42AA9D64400D5C5F8 /* AdaptiveModal */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = AdaptivePanel;
+			productName = AdaptiveModal;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
