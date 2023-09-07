@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		922930D52AA9D64400D5C5F8 /* AdaptiveModal in Frameworks */ = {isa = PBXBuildFile; productRef = 922930D42AA9D64400D5C5F8 /* AdaptiveModal */; };
-		92DB9A532AA332E8009D8B7E /* AdaptivePanelExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB9A522AA332E8009D8B7E /* AdaptivePanelExampleApp.swift */; };
+		92DB9A532AA332E8009D8B7E /* AdaptiveModalExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB9A522AA332E8009D8B7E /* AdaptiveModalExampleApp.swift */; };
 		92DB9A552AA332E8009D8B7E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB9A542AA332E8009D8B7E /* ContentView.swift */; };
 		92DB9A572AA332E9009D8B7E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92DB9A562AA332E9009D8B7E /* Assets.xcassets */; };
 		92DB9A5A2AA332E9009D8B7E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92DB9A592AA332E9009D8B7E /* Preview Assets.xcassets */; };
@@ -16,8 +16,8 @@
 
 /* Begin PBXFileReference section */
 		92A6F9832AA33A3D0099BE73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		92DB9A4F2AA332E8009D8B7E /* AdaptivePanelExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptivePanelExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		92DB9A522AA332E8009D8B7E /* AdaptivePanelExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptivePanelExampleApp.swift; sourceTree = "<group>"; };
+		92DB9A4F2AA332E8009D8B7E /* AdaptiveModalExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdaptiveModalExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92DB9A522AA332E8009D8B7E /* AdaptiveModalExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveModalExampleApp.swift; sourceTree = "<group>"; };
 		92DB9A542AA332E8009D8B7E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		92DB9A562AA332E9009D8B7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92DB9A592AA332E9009D8B7E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -45,7 +45,7 @@
 		92DB9A462AA332E8009D8B7E = {
 			isa = PBXGroup;
 			children = (
-				92DB9A512AA332E8009D8B7E /* AdaptivePanelExample */,
+				92DB9A512AA332E8009D8B7E /* AdaptiveModalExample */,
 				92DB9A502AA332E8009D8B7E /* Products */,
 				92A6F9842AA33A4C0099BE73 /* Frameworks */,
 			);
@@ -54,21 +54,21 @@
 		92DB9A502AA332E8009D8B7E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				92DB9A4F2AA332E8009D8B7E /* AdaptivePanelExample.app */,
+				92DB9A4F2AA332E8009D8B7E /* AdaptiveModalExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		92DB9A512AA332E8009D8B7E /* AdaptivePanelExample */ = {
+		92DB9A512AA332E8009D8B7E /* AdaptiveModalExample */ = {
 			isa = PBXGroup;
 			children = (
 				92A6F9832AA33A3D0099BE73 /* Info.plist */,
-				92DB9A522AA332E8009D8B7E /* AdaptivePanelExampleApp.swift */,
+				92DB9A522AA332E8009D8B7E /* AdaptiveModalExampleApp.swift */,
 				92DB9A542AA332E8009D8B7E /* ContentView.swift */,
 				92DB9A562AA332E9009D8B7E /* Assets.xcassets */,
 				92DB9A582AA332E9009D8B7E /* Preview Content */,
 			);
-			path = AdaptivePanelExample;
+			path = AdaptiveModalExample;
 			sourceTree = "<group>";
 		};
 		92DB9A582AA332E9009D8B7E /* Preview Content */ = {
@@ -82,9 +82,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		92DB9A4E2AA332E8009D8B7E /* AdaptivePanelExample */ = {
+		92DB9A4E2AA332E8009D8B7E /* AdaptiveModalExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 92DB9A5D2AA332E9009D8B7E /* Build configuration list for PBXNativeTarget "AdaptivePanelExample" */;
+			buildConfigurationList = 92DB9A5D2AA332E9009D8B7E /* Build configuration list for PBXNativeTarget "AdaptiveModalExample" */;
 			buildPhases = (
 				92DB9A4B2AA332E8009D8B7E /* Sources */,
 				92DB9A4C2AA332E8009D8B7E /* Frameworks */,
@@ -94,12 +94,12 @@
 			);
 			dependencies = (
 			);
-			name = AdaptivePanelExample;
+			name = AdaptiveModalExample;
 			packageProductDependencies = (
 				922930D42AA9D64400D5C5F8 /* AdaptiveModal */,
 			);
 			productName = AdaptivePanelExample;
-			productReference = 92DB9A4F2AA332E8009D8B7E /* AdaptivePanelExample.app */;
+			productReference = 92DB9A4F2AA332E8009D8B7E /* AdaptiveModalExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -117,7 +117,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 92DB9A4A2AA332E8009D8B7E /* Build configuration list for PBXProject "AdaptivePanelExample" */;
+			buildConfigurationList = 92DB9A4A2AA332E8009D8B7E /* Build configuration list for PBXProject "AdaptiveModalExample" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -130,7 +130,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				92DB9A4E2AA332E8009D8B7E /* AdaptivePanelExample */,
+				92DB9A4E2AA332E8009D8B7E /* AdaptiveModalExample */,
 			);
 		};
 /* End PBXProject section */
@@ -153,7 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92DB9A552AA332E8009D8B7E /* ContentView.swift in Sources */,
-				92DB9A532AA332E8009D8B7E /* AdaptivePanelExampleApp.swift in Sources */,
+				92DB9A532AA332E8009D8B7E /* AdaptiveModalExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,11 +286,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"AdaptivePanelExample/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"AdaptiveModalExample/Preview Content\"";
 				DEVELOPMENT_TEAM = DTNU4X38FM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AdaptivePanelExample/Info.plist;
+				INFOPLIST_FILE = AdaptiveModalExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -301,7 +301,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yoshiysh.AdaptivePanelExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yoshiysh.AdaptiveModalExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -316,11 +316,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"AdaptivePanelExample/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"AdaptiveModalExample/Preview Content\"";
 				DEVELOPMENT_TEAM = DTNU4X38FM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AdaptivePanelExample/Info.plist;
+				INFOPLIST_FILE = AdaptiveModalExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -331,7 +331,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.yoshiysh.AdaptivePanelExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yoshiysh.AdaptiveModalExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -342,7 +342,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		92DB9A4A2AA332E8009D8B7E /* Build configuration list for PBXProject "AdaptivePanelExample" */ = {
+		92DB9A4A2AA332E8009D8B7E /* Build configuration list for PBXProject "AdaptiveModalExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				92DB9A5B2AA332E9009D8B7E /* Debug */,
@@ -351,7 +351,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		92DB9A5D2AA332E9009D8B7E /* Build configuration list for PBXNativeTarget "AdaptivePanelExample" */ = {
+		92DB9A5D2AA332E9009D8B7E /* Build configuration list for PBXNativeTarget "AdaptiveModalExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				92DB9A5E2AA332E9009D8B7E /* Debug */,

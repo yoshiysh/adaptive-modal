@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  AdaptivePanelExample
+//  AdaptiveModalExample
 //
 //  Created by yoshiysh on 2023/09/02.
 //
