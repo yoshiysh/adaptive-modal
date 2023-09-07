@@ -25,13 +25,12 @@ public extension View {
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> some View
     ) -> some View {
-        AdaptivePanel(
-            targetView: self,
+        modifier(AdaptivePanelViewModifier(
             isPresented: isPresented,
             draggable: draggable,
             cancelable: cancelable,
             onDismiss: onDismiss,
             content: content
-        )
+        ))
     }
 }

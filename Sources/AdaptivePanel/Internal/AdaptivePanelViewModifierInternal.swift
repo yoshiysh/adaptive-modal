@@ -1,5 +1,5 @@
 //
-//  AdaptivePanelInternal.swift
+//  AdaptivePanelViewModifier.swift
 //  AdaptivePanel
 //
 //  Created by yoshiysh on 2023/09/03.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension AdaptivePanel {
+extension AdaptivePanelViewModifier {
     @MainActor
     func onDismissAnimation() {
         withAnimation(.easeIn) {
@@ -102,7 +102,7 @@ extension AdaptivePanel {
     
     @MainActor
     func panelContent() -> some View {
-        content().frame(maxWidth: .infinity)
+        body().frame(maxWidth: .infinity)
     }
 
     @MainActor

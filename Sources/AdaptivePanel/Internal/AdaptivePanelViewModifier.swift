@@ -1,5 +1,5 @@
 //
-//  AdaptivePanel.swift
+//  AdaptivePanelViewModifier.swift
 //  AdaptivePanel
 //
 //  Created by yoshiysh on 2023/09/02.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AdaptivePanel<Content: View>: View, @unchecked Sendable {
+struct AdaptivePanelViewModifier<Body: View>: ViewModifier {
     @State var disableAnimations = true
     @State var isPresenteContainer = false
     @State var isPresentedContnet = false
@@ -16,19 +16,18 @@ struct AdaptivePanel<Content: View>: View, @unchecked Sendable {
     @State var contentHeight: Double = .zero
 
     @Binding var isPresented: Bool
-    let targetView: AnyView
-    var content: () -> Content
+    var body: () -> Body
     let onDismiss: (() -> Void)?
     let draggable: Bool
     let cancelable: Bool
-    
+
     let fraction: CGFloat = 0.95
     let minOpacity = 0.0
     let maxOpacity = 0.6
     var translatedHeight: Double { contentHeight * 1.1 }
 
-    var body: some View {
-        targetView
+    func body(content: Content) -> some View {
+        content
             .fullScreenCover(
                 isPresented: $isPresenteContainer,
                 content: fullScreenCoverView
@@ -46,18 +45,16 @@ struct AdaptivePanel<Content: View>: View, @unchecked Sendable {
     }
 
     init(
-        targetView: some View,
         isPresented: Binding<Bool>,
         draggable: Bool,
         cancelable: Bool,
         onDismiss: (() -> Void)? = nil,
-        content: @escaping () -> Content
+        content: @escaping () -> Body
     ) {
-        self.targetView = AnyView(targetView)
         _isPresented = isPresented
         self.draggable = draggable
         self.cancelable = cancelable
         self.onDismiss = onDismiss
-        self.content = content
+        self.body = content
     }
 }
