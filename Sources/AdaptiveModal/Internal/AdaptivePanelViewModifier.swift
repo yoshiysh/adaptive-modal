@@ -14,6 +14,7 @@ struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
     @State var opacity = 0.0
     @State var translation: CGSize = .zero
     @State var contentHeight: Double = .zero
+    @State var safeAreaInsetBottom: Double = .zero
 
     @Binding var isPresented: Bool
     var body: () -> Body
@@ -24,7 +25,7 @@ struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
     let fraction: CGFloat = 0.95
     let minOpacity = 0.0
     let maxOpacity = 0.6
-    var translatedHeight: Double { contentHeight * 1.1 }
+    var translatedHeight: Double { max(contentHeight + safeAreaInsetBottom, 100) * 1.1 }
 
     func body(content: Content) -> some View {
         content

@@ -1,13 +1,13 @@
 //
-//  CancelableDisabled.swift
+//  CancelableDisabledExample.swift
 //  AdaptiveModalExample
 //
-//  Created by yoshi on 2023/09/08.
+//  Created by yoshiysh on 2023/09/08.
 //
 
 import SwiftUI
 
-struct CancelableDisabled: View {
+struct CancelableDisabledExample: View {
     @State var isPresented = false
 
     var body: some View {
@@ -36,6 +36,6 @@ struct CancelableDisabled: View {
 
 #Preview {
     NavigationView {
-        CancelableDisabled()
+        CancelableDisabledExample()
     }
 }

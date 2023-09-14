@@ -1,13 +1,13 @@
 //
-//  DisableDraggable.swift
+//  DraggableDisabledExample.swift
 //  AdaptiveModalExample
 //
-//  Created by yoshi on 2023/09/08.
+//  Created by yoshiysh on 2023/09/08.
 //
 
 import SwiftUI
 
-struct DraggableDisabled: View {
+struct DraggableDisabledExample: View {
     @State var isPresented = false
 
     var body: some View {
@@ -45,6 +45,6 @@ struct DraggableDisabled: View {
 
 #Preview {
     NavigationView {
-        DraggableDisabled()
+        DraggableDisabledExample()
     }
 }

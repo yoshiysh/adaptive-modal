@@ -2,7 +2,7 @@
 //  BlueButton.swift
 //  AdaptiveModalExample
 //
-//  Created by yoshi on 2023/09/07.
+//  Created by yoshiysh on 2023/09/07.
 //
 
 import SwiftUI

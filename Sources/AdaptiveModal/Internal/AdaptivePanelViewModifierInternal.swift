@@ -10,9 +10,9 @@ import SwiftUI
 extension AdaptiveModalViewModifier {
     @MainActor
     func onDismissAnimation() {
-        withAnimation(.easeIn) {
+        withAnimation(.easeOut) {
             translation = CGSize(
-                width: translation.width,
+                width: .zero,
                 height: translatedHeight
             )
         }
@@ -31,7 +31,7 @@ extension AdaptiveModalViewModifier {
         fullScreenCoverContent()
             .background(BackgroundView(backgroundColor: .clear))
             .onAnimationCompleted(for: translation.height) {
-                if translation.height == translatedHeight {
+                if isPresentedContnet && translation.height >= translatedHeight {
                     isPresentedContnet = false
                     onEndDismissAnimation()
                 }
@@ -39,7 +39,7 @@ extension AdaptiveModalViewModifier {
                 if !translation.height.isZero {
                     opacity = min(
                         opacity,
-                        ((translatedHeight - value) / translatedHeight) * maxOpacity
+                        ((contentHeight - value) / contentHeight) * maxOpacity
                     )
                 }
             }
@@ -72,7 +72,10 @@ extension AdaptiveModalViewModifier {
                         .frame(minHeight: minHeight())
                     
                     modalView()
-                        .contentHeight { contentHeight = $0 }
+                        .contentHeight(
+                            contentHeight: { contentHeight = $0 },
+                            safeAreaInsetBottom: { safeAreaInsetBottom = $0 }
+                        )
                         .offset(translation)
                         .layoutPriority(1)
                 }
@@ -87,7 +90,10 @@ extension AdaptiveModalViewModifier {
         if draggable {
             modalContent()
                 .draggableBackground(cancelable: cancelable) {
-                    onDismissAnimation()
+                    if isPresentedContnet {
+                        isPresentedContnet = false
+                        onEndDismissAnimation()
+                    }
                 } onTranslationHeightChanged: { value in
                     opacity = min(
                         maxOpacity,

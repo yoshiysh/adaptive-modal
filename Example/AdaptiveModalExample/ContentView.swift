@@ -20,13 +20,24 @@ struct ContentView: View {
                         ScrollViewExample()
                     }
                     NavigationLink("Draggable Disabled") {
-                        DraggableDisabled()
+                        DraggableDisabledExample()
                     }
                     NavigationLink("Cancelable Disabled") {
-                        CancelableDisabled()
+                        CancelableDisabledExample()
                     }
                 } header: {
                     Text("Basic")
+                }
+
+                Section {
+                    NavigationLink("DisclosureGroup Example") {
+                        DisclosureGroupExample()
+                    }
+                    NavigationLink("Item Binding Example") {
+                        ItemBindingExample()
+                    }
+                } header: {
+                    Text("Extra")
                 }
             }
             .navigationTitle("Examples")

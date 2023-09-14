@@ -10,15 +10,19 @@ import SwiftUI
 struct DraggableBackgroundViewModifier: ViewModifier {
     @State private var translation: CGSize = .zero
     @State private var contentHeight: Double = .zero
+    @State private var safeAreaInsetBottom: Double = .zero
 
     private let cancelable: Bool
     private let onDismiss: () -> Void
     private let onTranslationHeightChanged: (Double) -> Void
-    private var translatedHeight: Double { contentHeight * 1.1 }
+    private var translatedHeight: Double { max(contentHeight + safeAreaInsetBottom, 100) * 1.1 }
 
     func body(content: Content) -> some View {
         content
-            .contentHeight { contentHeight = $0 }
+            .contentHeight(
+                contentHeight: { contentHeight = $0 },
+                safeAreaInsetBottom: { safeAreaInsetBottom = $0 }
+            )
             .offset(translation.height > 0 ? translation : .zero)
             .upperRoundedBackground(offset: $translation)
             .gesture(
@@ -28,26 +32,25 @@ struct DraggableBackgroundViewModifier: ViewModifier {
                     }
                     .onEnded { gesture in
                         if cancelable && gesture.requireDismiss(contentHeight: contentHeight) {
-                            withAnimation(.interactiveSpring) {
+                            withAnimation(.easeOut) {
                                 translation = CGSize(
-                                    width: translation.width,
+                                    width: .zero,
                                     height: translatedHeight
                                 )
                             }
                         } else {
-                            withAnimation(.interactiveSpring) {
+                            withAnimation(.interpolatingSpring) {
                                 translation = .zero
                             }
                         }
                     }
             )
-            .onChange(of: translation.height) { value in
-                onTranslationHeightChanged(value)
-            }
             .onAnimationCompleted(for: translation.height) {
-                if translation.height == translatedHeight {
+                if translation.height >= translatedHeight {
                     onDismiss()
                 }
+            } onValueChanged: { value in
+                onTranslationHeightChanged(value)
             }
     }
     
@@ -75,22 +78,6 @@ extension View {
             onDismiss: onDismiss,
             onTranslationHeightChanged: onTranslationHeightChanged
         ))
-    }
-}
-
-// MARK: Private Extension
-private extension DraggableBackgroundViewModifier {
-    @MainActor
-    func contentView(content: Content) -> some View {
-        content
-            .background(
-                GeometryReader { proxy in
-                    DispatchQueue.main.async {
-                        contentHeight = proxy.size.height
-                    }
-                    return Color.clear
-                }
-            )
     }
 }
 

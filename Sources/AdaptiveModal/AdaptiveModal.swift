@@ -17,7 +17,6 @@ public extension View {
     ///     if false,  then  has no effect.
     ///   - onDismiss: The closure to execute when dismissing the modal view.
     ///   - content: A closure that returns the content of the modal view.
-    @MainActor
     func adaptiveModal(
         isPresented: Binding<Bool>,
         draggable: Bool = true,
@@ -31,6 +30,44 @@ public extension View {
             cancelable: cancelable,
             onDismiss: onDismiss,
             content: content
+        ))
+    }
+
+    /// - Parameters:
+    ///   - item: A binding to an optional source of truth for the sheet.
+    ///     When `item` is non-`nil`, the system passes the item's content to
+    ///     the modifier's closure. You display this content in a sheet that you
+    ///     create that the system displays to the user. If `item` changes,
+    ///     the system dismisses the sheet and replaces it with a new one
+    ///     using the same process.
+    ///   - draggable: if true, then content draggable y-axis
+    ///     if false, then undraggable
+    ///   - cancelable: if true, then  tapping this background or swiping down dismiss,
+    ///     if false,  then  has no effect.
+    ///   - onDismiss: The closure to execute when dismissing the sheet.
+    ///   - content: A closure returning the content of the sheet.
+    func adaptiveModal<Item: Identifiable>(
+        item: Binding<Item?>,
+        draggable: Bool = true,
+        cancelable: Bool = true,
+        onDismiss: (() -> Void)? = nil,
+        @ViewBuilder content: @escaping (Item) -> some View
+    ) -> some View {
+        modifier(AdaptiveModalViewModifier(
+            isPresented: .init(
+                get: { item.wrappedValue != nil },
+                set: { _ in item.wrappedValue = nil }
+            ),
+            draggable: draggable,
+            cancelable: cancelable,
+            onDismiss: onDismiss,
+            content: {
+                Group {
+                    if let wrappedValue = item.wrappedValue {
+                        content(wrappedValue)
+                    }
+                }
+            }
         ))
     }
 }
