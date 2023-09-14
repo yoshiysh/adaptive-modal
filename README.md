@@ -12,6 +12,10 @@ A presentation API library for constructing bottom sheet modals on iOS.
 | --- | --- |
 | <video src="https://github.com/yoshiysh/adaptive-modal/assets/22577999/4c4dbc29-02b3-4780-bc11-1f445fafa98b" width="300"> | <video src="https://github.com/yoshiysh/adaptive-modal/assets/22577999/07ef1013-2110-4bc9-9bb8-c29ca731a329" width="300"> |
 
+| EXPAND | ITEMS |
+| --- | --- |
+| <video src="https://github.com/yoshiysh/adaptive-modal/assets/22577999/d47a1060-d2b5-47f2-9770-e03315e46bd8" width="300"> | <video src="https://github.com/yoshiysh/adaptive-modal/assets/22577999/4239c642-fd38-4e65-adb9-52f5aae1b49d" width="300"> |
+
 ### Options
 
 | DRAGGABLE=FALSE | CANCELABLE=FALSE |
@@ -23,7 +27,7 @@ A presentation API library for constructing bottom sheet modals on iOS.
 ### Package.swift
 ```swift
 dependencies: [
-  .package(url: "https://github.com/yoshiysh/adaptive-modal", .upToNextMajor(from: "0.6.0")),
+  .package(url: "https://github.com/yoshiysh/adaptive-modal", .upToNextMajor(from: "1.0.0")),
 ],
 ```
 

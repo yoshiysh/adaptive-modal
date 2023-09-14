@@ -10,11 +10,11 @@ import SwiftUI
 public extension View {
     /// - Parameters:
     ///   - isPresented: A binding to a Boolean value that determines whether
-    ///     to present the sheet.
+    ///     to present the modal view.
     ///   - draggable: if true, then content draggable y-axis
     ///     if false, then undraggable
     ///   - cancelable: if true, then  tapping this background or swiping down dismiss,
-    ///     if false,  then  has no effect.
+    ///     if false, then  has no effect.
     ///   - onDismiss: The closure to execute when dismissing the modal view.
     ///   - content: A closure that returns the content of the modal view.
     func adaptiveModal(
@@ -34,18 +34,18 @@ public extension View {
     }
 
     /// - Parameters:
-    ///   - item: A binding to an optional source of truth for the sheet.
+    ///   - item: A binding to an optional source of truth for the modal view.
     ///     When `item` is non-`nil`, the system passes the item's content to
-    ///     the modifier's closure. You display this content in a sheet that you
+    ///     the modifier's closure. You display this content in a modal view that you
     ///     create that the system displays to the user. If `item` changes,
-    ///     the system dismisses the sheet and replaces it with a new one
+    ///     the system dismisses the modal view and replaces it with a new one
     ///     using the same process.
     ///   - draggable: if true, then content draggable y-axis
     ///     if false, then undraggable
     ///   - cancelable: if true, then  tapping this background or swiping down dismiss,
     ///     if false,  then  has no effect.
-    ///   - onDismiss: The closure to execute when dismissing the sheet.
-    ///   - content: A closure returning the content of the sheet.
+    ///   - onDismiss: The closure to execute when dismissing the modal view.
+    ///   - content: A closure that returns the content of the modal view.
     func adaptiveModal<Item: Identifiable>(
         item: Binding<Item?>,
         draggable: Bool = true,
