@@ -1,3 +1,8 @@
+<p align="center">
+     <img src="https://img.shields.io/github/license/yoshiysh/adaptive-modal">
+    <img src="https://img.shields.io/github/v/release/yoshiysh/adaptive-modal">
+</p>
+
 # adaptive-modal
 
 A presentation API library for constructing bottom sheet modals on iOS.
@@ -27,7 +32,7 @@ A presentation API library for constructing bottom sheet modals on iOS.
 ### Package.swift
 ```swift
 dependencies: [
-  .package(url: "https://github.com/yoshiysh/adaptive-modal", .upToNextMajor(from: "1.0.0")),
+  .package(url: "https://github.com/yoshiysh/adaptive-modal", .upToNextMajor(from: "0.6.0")),
 ],
 ```
 
