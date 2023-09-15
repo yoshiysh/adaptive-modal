@@ -1,11 +1,11 @@
-<p align="center">
-     <img src="https://img.shields.io/github/license/yoshiysh/adaptive-modal">
-    <img src="https://img.shields.io/github/v/release/yoshiysh/adaptive-modal">
-</p>
-
 # adaptive-modal
+  
+[![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://developer.apple.com/ios/)
+[![SPM](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
+[![Release](https://img.shields.io/github/v/release/yoshiysh/adaptive-modal)](https://github.com/yoshiysh/adaptive-modal/releases/latest)
+[![License](https://img.shields.io/github/license/yoshiysh/adaptive-modal)](https://github.com/yoshiysh/adaptive-modal/blob/main/LICENSE)
 
-A presentation API library for constructing bottom sheet modals on iOS.
+#### A presentation API library for constructing bottom sheet modals on iOS.
 
 ## iPhone Preview
 
@@ -40,8 +40,3 @@ dependencies: [
 
 You can add this package on Xcode.
 See [documentation](https://developer.apple.com/documentation/swift_packages/adding_package_dependencies_to_your_app).
-
-### Requirements
-
-- iOS 14.0+
-- Xcode 15+
