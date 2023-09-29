@@ -1,7 +1,7 @@
 # adaptive-modal
   
-[![Platform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)](https://developer.apple.com/ios/)
-[![SPM](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager/)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fyoshiysh%2Fadaptive-modal%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/yoshiysh/adaptive-modal)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fyoshiysh%2Fadaptive-modal%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/yoshiysh/adaptive-modal)
 [![Release](https://img.shields.io/github/v/release/yoshiysh/adaptive-modal)](https://github.com/yoshiysh/adaptive-modal/releases/latest)
 [![License](https://img.shields.io/github/license/yoshiysh/adaptive-modal)](https://github.com/yoshiysh/adaptive-modal/blob/main/LICENSE)
 
