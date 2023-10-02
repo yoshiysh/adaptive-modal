@@ -36,6 +36,9 @@ struct ContentView: View {
                     NavigationLink("Item Binding Example") {
                         ItemBindingExample()
                     }
+                    NavigationLink("Sheet After Close Modal Example") {
+                        SheetAfterCloseModal()
+                    }
                 } header: {
                     Text("Extra")
                 }

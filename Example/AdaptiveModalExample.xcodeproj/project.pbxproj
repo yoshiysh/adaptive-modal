@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		922930D52AA9D64400D5C5F8 /* AdaptiveModal in Frameworks */ = {isa = PBXBuildFile; productRef = 922930D42AA9D64400D5C5F8 /* AdaptiveModal */; };
+		922AAB412ACA706900B9AE7A /* SheetAfterCloseModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AAB402ACA706900B9AE7A /* SheetAfterCloseModal.swift */; };
 		923ADA692AB2432D0042D798 /* ItemBindingExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ADA682AB2432D0042D798 /* ItemBindingExample.swift */; };
 		926935D72AA9FFDF007132DC /* LongText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926935D62AA9FFDF007132DC /* LongText.swift */; };
 		926935D92AAA0031007132DC /* BlueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926935D82AAA0031007132DC /* BlueButton.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		922AAB402ACA706900B9AE7A /* SheetAfterCloseModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetAfterCloseModal.swift; sourceTree = "<group>"; };
 		923ADA682AB2432D0042D798 /* ItemBindingExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemBindingExample.swift; sourceTree = "<group>"; };
 		926935D62AA9FFDF007132DC /* LongText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongText.swift; sourceTree = "<group>"; };
 		926935D82AAA0031007132DC /* BlueButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueButton.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				926935E02AAA3C62007132DC /* CancelableDisabledExample.swift */,
 				926935E32AAA50BD007132DC /* DisclosureGroupExample.swift */,
 				923ADA682AB2432D0042D798 /* ItemBindingExample.swift */,
+				922AAB402ACA706900B9AE7A /* SheetAfterCloseModal.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				926935E12AAA3C62007132DC /* CancelableDisabledExample.swift in Sources */,
 				926935DF2AAA3A09007132DC /* DraggableDisabledExample.swift in Sources */,
 				926935DB2AAA00FD007132DC /* BasicExample.swift in Sources */,
+				922AAB412ACA706900B9AE7A /* SheetAfterCloseModal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
