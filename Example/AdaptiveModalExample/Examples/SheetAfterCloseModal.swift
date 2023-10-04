@@ -2,7 +2,7 @@
 //  SheetAfterCloseModal.swift
 //  AdaptiveModalExample
 //
-//  Created by yoshi on 2023/10/02.
+//  Created by yoshiysh on 2023/10/02.
 //
 
 import AdaptiveModal
