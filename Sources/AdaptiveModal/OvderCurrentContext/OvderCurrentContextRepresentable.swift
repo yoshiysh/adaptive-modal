@@ -9,15 +9,18 @@ import SwiftUI
 
 struct OvderCurrentContextRepresentable<Content: View>: UIViewControllerRepresentable {
     @Binding private var isPresented: Bool
-    private let onDismiss: (() -> Void)?
+    private let willDismiss: () -> Void
+    private let onDismiss: () -> Void
     private let content: () -> Content
 
     init(
         isPresented: Binding<Bool>,
-        onDismiss: (() -> Void)? = nil,
+        willDismiss: @escaping () -> Void,
+        onDismiss: @escaping () -> Void,
         content: @escaping () -> Content
     ) {
         _isPresented = isPresented
+        self.willDismiss = willDismiss
         self.onDismiss = onDismiss
         self.content = content
     }
@@ -38,16 +41,15 @@ struct OvderCurrentContextRepresentable<Content: View>: UIViewControllerRepresen
             let hostingController = HostingController(rootView: content())
             hostingController.presentationController?.delegate = context.coordinator
             DispatchQueue.main.async {
-                uiViewController.present(hostingController, animated: true)
+                uiViewController.present(hostingController, animated: false)
             }
         } else {
             if !isHostingControllerPresented { return }
 
             DispatchQueue.main.async {
-                uiViewController.dismiss(animated: true, completion: {
-                    isPresented = false
-                    onDismiss?()
-                })
+                uiViewController.dismiss(animated: false) {
+                    onDismiss()
+                }
             }
         }
     }
@@ -64,9 +66,12 @@ struct OvderCurrentContextRepresentable<Content: View>: UIViewControllerRepresen
             self.parent = parent
         }
 
+        func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+            parent.willDismiss()
+        }
+
         func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-            parent.isPresented = false
-            parent.onDismiss?()
+            parent.onDismiss()
         }
     }
 

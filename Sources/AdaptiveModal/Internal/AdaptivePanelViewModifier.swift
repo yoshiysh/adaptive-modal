@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
-    @State var disableAnimations = true
     @State var isPresenteContainer = false
     @State var isPresentedContnet = false
     @State var opacity = 0.0
@@ -27,24 +26,6 @@ struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
     let maxOpacity = 0.6
     var translatedHeight: Double { max(contentHeight + safeAreaInsetBottom, 100) * 1.1 }
 
-    func body(content: Content) -> some View {
-        content
-            .fullScreenCover(
-                isPresented: $isPresenteContainer,
-                content: fullScreenCoverView
-            )
-            .onChange(of: isPresented) { state in
-                if state {
-                    isPresenteContainer = true
-                } else {
-                    onDismissAnimation()
-                }
-            }
-            .transaction { transaction in
-                transaction.disablesAnimations = disableAnimations
-            }
-    }
-
     init(
         isPresented: Binding<Bool>,
         draggable: Bool,
@@ -57,5 +38,18 @@ struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
         self.cancelable = cancelable
         self.onDismiss = onDismiss
         self.body = content
+    }
+    
+    func body(content: Content) -> some View {
+        content
+            .overCurrentContext(
+                isPresented: $isPresented,
+                willDismiss: {},
+                onDismiss: {
+                    isPresented = false
+                    onDismiss?()
+                },
+                content: fullScreenCoverView
+            )
     }
 }

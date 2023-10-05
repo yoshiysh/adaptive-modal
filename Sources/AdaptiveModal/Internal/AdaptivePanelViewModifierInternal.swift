@@ -20,7 +20,6 @@ extension AdaptiveModalViewModifier {
 
     @MainActor
     func onEndDismissAnimation() {
-        disableAnimations = true
         isPresenteContainer = false
         isPresented = false
         onDismiss?()
@@ -29,7 +28,6 @@ extension AdaptiveModalViewModifier {
     @MainActor
     func fullScreenCoverView() -> some View {
         fullScreenCoverContent()
-            .background(BackgroundView(backgroundColor: .clear))
             .onAnimationCompleted(for: translation.height) {
                 if isPresentedContnet && translation.height >= translatedHeight {
                     isPresentedContnet = false
@@ -44,7 +42,6 @@ extension AdaptiveModalViewModifier {
                 }
             }
             .onAppear {
-                disableAnimations = false
                 translation = .zero
 
                 withAnimation(.easeOut) {
