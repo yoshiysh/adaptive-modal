@@ -1,33 +1,31 @@
 //
-//  AdaptiveModalViewModifier.swift
+//  AdaptiveModalContent.swift
 //  AdaptiveModal
 //
-//  Created by yoshiysh on 2023/09/03.
+//  Created by yoshiysh on 2023/10/05.
 //
 
 import SwiftUI
 
-extension AdaptiveModalViewModifier {
-    @MainActor
-    func onDismissAnimation() {
-        withAnimation(.easeOut) {
-            translation = CGSize(
-                width: .zero,
-                height: translatedHeight
-            )
-        }
-    }
+struct AdaptiveModalContent<Content: View>: View {
+    @State var isPresentedContnet = false
+    @State var opacity = 0.0
+    @State var translation: CGSize = .zero
+    @State var contentHeight: Double = .zero
+    @State var safeAreaInsetBottom: Double = .zero
 
-    @MainActor
-    func onEndDismissAnimation() {
-        isPresenteContainer = false
-        isPresented = false
-        onDismiss?()
-    }
+    let content: () -> Content
+    let onDismiss: () -> Void
+    let draggable: Bool
+    let cancelable: Bool
 
-    @MainActor
-    func fullScreenCoverView() -> some View {
-        fullScreenCoverContent()
+    let fraction: CGFloat = 0.95
+    let minOpacity = 0.0
+    let maxOpacity = 0.6
+    var translatedHeight: Double { max(contentHeight + safeAreaInsetBottom, 100) * 1.1 }
+
+    var body: some View {
+        contentView()
             .onAnimationCompleted(for: translation.height) {
                 if isPresentedContnet && translation.height >= translatedHeight {
                     isPresentedContnet = false
@@ -51,8 +49,22 @@ extension AdaptiveModalViewModifier {
             }
     }
 
+    init(
+        draggable: Bool,
+        cancelable: Bool,
+        onDismiss: @escaping () -> Void,
+        content: @escaping () -> Content
+    ) {
+        self.draggable = draggable
+        self.cancelable = cancelable
+        self.onDismiss = onDismiss
+        self.content = content
+    }
+}
+
+private extension AdaptiveModalContent {
     @MainActor
-    func fullScreenCoverContent() -> some View {
+    func contentView() -> some View {
         ZStack {
             Color.black
                 .opacity(opacity)
@@ -62,12 +74,12 @@ extension AdaptiveModalViewModifier {
                         onDismissAnimation()
                     }
                 }
-            
+
             if isPresentedContnet {
                 VStack {
                     Spacer()
                         .frame(minHeight: minHeight())
-                    
+
                     modalView()
                         .contentHeight(
                             contentHeight: { contentHeight = $0 },
@@ -80,7 +92,7 @@ extension AdaptiveModalViewModifier {
             }
         }
     }
-
+    
     @MainActor
     @ViewBuilder
     func modalView() -> some View {
@@ -102,10 +114,25 @@ extension AdaptiveModalViewModifier {
                 .upperRoundedBackground()
         }
     }
-    
+
+    @MainActor
+    func onDismissAnimation() {
+        withAnimation(.easeOut) {
+            translation = CGSize(
+                width: .zero,
+                height: translatedHeight
+            )
+        }
+    }
+
+    @MainActor
+    func onEndDismissAnimation() {
+        onDismiss()
+    }
+
     @MainActor
     func modalContent() -> some View {
-        body().frame(maxWidth: .infinity)
+        content().frame(maxWidth: .infinity)
     }
 
     @MainActor

@@ -9,18 +9,15 @@ import SwiftUI
 
 struct OvderCurrentContextRepresentable<Content: View>: UIViewControllerRepresentable {
     @Binding private var isPresented: Bool
-    private let willDismiss: () -> Void
     private let onDismiss: () -> Void
     private let content: () -> Content
 
     init(
         isPresented: Binding<Bool>,
-        willDismiss: @escaping () -> Void,
         onDismiss: @escaping () -> Void,
         content: @escaping () -> Content
     ) {
         _isPresented = isPresented
-        self.willDismiss = willDismiss
         self.onDismiss = onDismiss
         self.content = content
     }
@@ -39,7 +36,6 @@ struct OvderCurrentContextRepresentable<Content: View>: UIViewControllerRepresen
             if isHostingControllerPresented { return }
 
             let hostingController = HostingController(rootView: content())
-            hostingController.presentationController?.delegate = context.coordinator
             DispatchQueue.main.async {
                 uiViewController.present(hostingController, animated: false)
             }
@@ -51,27 +47,6 @@ struct OvderCurrentContextRepresentable<Content: View>: UIViewControllerRepresen
                     onDismiss()
                 }
             }
-        }
-    }
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(parent: self)
-    }
-
-    // MARK: - Coordinator
-    class Coordinator: NSObject, UISheetPresentationControllerDelegate {
-        private let parent: OvderCurrentContextRepresentable
-
-        init(parent: OvderCurrentContextRepresentable) {
-            self.parent = parent
-        }
-
-        func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
-            parent.willDismiss()
-        }
-
-        func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-            parent.onDismiss()
         }
     }
 
