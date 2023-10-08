@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AdaptiveModalContent<Content: View>: View {
-    @State var isPresented = false
+    @Binding var isPresented: Bool
+    @State var isPresentedContent = false
     @State var opacity = 0.0
     @State var translation: CGSize = .zero
     @State var contentHeight: Double = .zero
@@ -27,8 +28,7 @@ struct AdaptiveModalContent<Content: View>: View {
     var body: some View {
         contentView()
             .onAnimationCompleted(for: translation.height) {
-                if isPresented && translation.height >= translatedHeight {
-                    isPresented = false
+                if translation.height >= translatedHeight {
                     onEndDismissAnimation()
                 }
             } onValueChanged: { value in
@@ -44,17 +44,23 @@ struct AdaptiveModalContent<Content: View>: View {
 
                 withAnimation(.easeOut) {
                     opacity = maxOpacity
-                    isPresented = true
+                    isPresentedContent = true
                 }
+            }
+            .onChange(of: isPresented) { value in
+                if value { return }
+                onDismissAnimation()
             }
     }
 
     init(
+        isPresented: Binding<Bool>,
         draggable: Bool,
         cancelable: Bool,
         onDismiss: @escaping () -> Void,
         content: @escaping () -> Content
     ) {
+        _isPresented = isPresented
         self.draggable = draggable
         self.cancelable = cancelable
         self.onDismiss = onDismiss
@@ -75,7 +81,7 @@ private extension AdaptiveModalContent {
                     }
                 }
 
-            if isPresented {
+            if isPresentedContent {
                 VStack {
                     Spacer()
                         .frame(minHeight: minHeight())
@@ -99,10 +105,7 @@ private extension AdaptiveModalContent {
         if draggable {
             modalContent()
                 .draggableBackground(cancelable: cancelable) {
-                    if isPresented {
-                        isPresented = false
-                        onEndDismissAnimation()
-                    }
+                    onEndDismissAnimation()
                 } onTranslationHeightChanged: { value in
                     opacity = min(
                         maxOpacity,
@@ -127,7 +130,10 @@ private extension AdaptiveModalContent {
 
     @MainActor
     func onEndDismissAnimation() {
-        onDismiss()
+        if isPresentedContent {
+            isPresentedContent = false
+            onDismiss()
+        }
     }
 
     @MainActor
