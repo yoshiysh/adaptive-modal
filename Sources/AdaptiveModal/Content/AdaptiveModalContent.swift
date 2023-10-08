@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AdaptiveModalContent<Content: View>: View {
-    @State var isPresentedContnet = false
+    @State var isPresented = false
     @State var opacity = 0.0
     @State var translation: CGSize = .zero
     @State var contentHeight: Double = .zero
@@ -27,8 +27,8 @@ struct AdaptiveModalContent<Content: View>: View {
     var body: some View {
         contentView()
             .onAnimationCompleted(for: translation.height) {
-                if isPresentedContnet && translation.height >= translatedHeight {
-                    isPresentedContnet = false
+                if isPresented && translation.height >= translatedHeight {
+                    isPresented = false
                     onEndDismissAnimation()
                 }
             } onValueChanged: { value in
@@ -44,7 +44,7 @@ struct AdaptiveModalContent<Content: View>: View {
 
                 withAnimation(.easeOut) {
                     opacity = maxOpacity
-                    isPresentedContnet = true
+                    isPresented = true
                 }
             }
     }
@@ -75,7 +75,7 @@ private extension AdaptiveModalContent {
                     }
                 }
 
-            if isPresentedContnet {
+            if isPresented {
                 VStack {
                     Spacer()
                         .frame(minHeight: minHeight())
@@ -99,8 +99,8 @@ private extension AdaptiveModalContent {
         if draggable {
             modalContent()
                 .draggableBackground(cancelable: cancelable) {
-                    if isPresentedContnet {
-                        isPresentedContnet = false
+                    if isPresented {
+                        isPresented = false
                         onEndDismissAnimation()
                     }
                 } onTranslationHeightChanged: { value in
