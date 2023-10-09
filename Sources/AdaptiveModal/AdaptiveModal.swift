@@ -53,7 +53,7 @@ public extension View {
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping (Item) -> some View
     ) -> some View {
-        modifier(AdaptiveModalViewModifier(
+        adaptiveModal(
             isPresented: .init(
                 get: { item.wrappedValue != nil },
                 set: { _ in item.wrappedValue = nil }
@@ -68,6 +68,6 @@ public extension View {
                     }
                 }
             }
-        ))
+        )
     }
 }
