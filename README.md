@@ -32,7 +32,7 @@
 ### Package.swift
 ```swift
 dependencies: [
-  .package(url: "https://github.com/yoshiysh/adaptive-modal", .upToNextMajor(from: "0.6.0")),
+  .package(url: "https://github.com/yoshiysh/adaptive-modal", .upToNextMajor(from: "0.7.0")),
 ],
 ```
 
