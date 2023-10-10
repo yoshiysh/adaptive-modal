@@ -19,7 +19,7 @@
 
 | EXPAND | ITEMS |
 | --- | --- |
-| <video src="https://github.com/yoshiysh/adaptive-modal/assets/22577999/d47a1060-d2b5-47f2-9770-e03315e46bd8" width="300"> | <video src="https://github.com/yoshiysh/adaptive-modal/assets/22577999/4239c642-fd38-4e65-adb9-52f5aae1b49d" width="300"> |
+| <video src="https://github.com/yoshiysh/adaptive-modal/assets/22577999/a0b03ae7-73eb-41db-831e-5e3cc085e625" width="300"> | <video src="https://github.com/yoshiysh/adaptive-modal/assets/22577999/e058fec8-a7d0-4411-87f1-db9438a96bc4" width="300"> |
 
 ### Options
 
