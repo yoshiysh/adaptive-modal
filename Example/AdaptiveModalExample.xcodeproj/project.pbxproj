@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9217F6F02ADAF7E80082D026 /* ModalOnFullScreenCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9217F6EF2ADAF7E80082D026 /* ModalOnFullScreenCover.swift */; };
 		922930D52AA9D64400D5C5F8 /* AdaptiveModal in Frameworks */ = {isa = PBXBuildFile; productRef = 922930D42AA9D64400D5C5F8 /* AdaptiveModal */; };
 		922AAB412ACA706900B9AE7A /* SheetAfterCloseModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AAB402ACA706900B9AE7A /* SheetAfterCloseModal.swift */; };
 		923ADA692AB2432D0042D798 /* ItemBindingExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923ADA682AB2432D0042D798 /* ItemBindingExample.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9217F6EF2ADAF7E80082D026 /* ModalOnFullScreenCover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalOnFullScreenCover.swift; sourceTree = "<group>"; };
 		922AAB402ACA706900B9AE7A /* SheetAfterCloseModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetAfterCloseModal.swift; sourceTree = "<group>"; };
 		923ADA682AB2432D0042D798 /* ItemBindingExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemBindingExample.swift; sourceTree = "<group>"; };
 		926935D62AA9FFDF007132DC /* LongText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongText.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				926935E32AAA50BD007132DC /* DisclosureGroupExample.swift */,
 				923ADA682AB2432D0042D798 /* ItemBindingExample.swift */,
 				922AAB402ACA706900B9AE7A /* SheetAfterCloseModal.swift */,
+				9217F6EF2ADAF7E80082D026 /* ModalOnFullScreenCover.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				92DB9A532AA332E8009D8B7E /* AdaptiveModalExampleApp.swift in Sources */,
 				923ADA692AB2432D0042D798 /* ItemBindingExample.swift in Sources */,
 				926935E42AAA50BD007132DC /* DisclosureGroupExample.swift in Sources */,
+				9217F6F02ADAF7E80082D026 /* ModalOnFullScreenCover.swift in Sources */,
 				926935E12AAA3C62007132DC /* CancelableDisabledExample.swift in Sources */,
 				926935DF2AAA3A09007132DC /* DraggableDisabledExample.swift in Sources */,
 				926935DB2AAA00FD007132DC /* BasicExample.swift in Sources */,

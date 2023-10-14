@@ -39,6 +39,9 @@ struct ContentView: View {
                     NavigationLink("Sheet After Close Modal Example") {
                         SheetAfterCloseModal()
                     }
+                    NavigationLink("Modal on FullScreenCover Example") {
+                        ModalOnFullScreenCover()
+                    }
                 } header: {
                     Text("Extra")
                 }
