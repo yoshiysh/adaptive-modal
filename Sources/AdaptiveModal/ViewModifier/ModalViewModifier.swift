@@ -36,7 +36,7 @@ struct ModalViewModifier<T: View>: ViewModifier {
 
 // MARK: - View Extension
 extension View {
-    func overCurrentContext(
+    func modal(
         isPresented: Binding<Bool>,
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> some View

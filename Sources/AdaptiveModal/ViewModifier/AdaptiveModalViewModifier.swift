@@ -30,14 +30,14 @@ struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .overCurrentContext(
+            .modal(
                 isPresented: $isPresented,
                 onDismiss: {
                     isPresented = false
                     onDismiss?()
                 }
             ) {
-                AdaptiveModalContent(
+                ModalContent(
                     isPresented: $isPresented,
                     draggable: draggable,
                     cancelable: cancelable,

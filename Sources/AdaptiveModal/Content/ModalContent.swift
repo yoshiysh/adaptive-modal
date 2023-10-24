@@ -1,5 +1,5 @@
 //
-//  AdaptiveModalContent.swift
+//  ModalContent.swift
 //  AdaptiveModal
 //
 //  Created by yoshiysh on 2023/10/05.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AdaptiveModalContent<Content: View>: View {
+struct ModalContent<Content: View>: View {
     @Binding var isPresented: Bool
     @State var opacity = 0.0
     @State var translation: CGSize = .zero
@@ -66,12 +66,12 @@ struct AdaptiveModalContent<Content: View>: View {
     }
 }
 
-private extension AdaptiveModalContent {
+private extension ModalContent {
     @MainActor
     func contentView() -> some View {
         ZStack {
             Color.black
-                .opacity(0)
+                .opacity(0.01)
                 .ignoresSafeArea()
                 .onTapGesture {
                     if cancelable {
