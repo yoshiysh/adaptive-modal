@@ -1,5 +1,5 @@
 //
-//  ContentHeightModifier.swift
+//  ContentHeightViewModifier.swift
 //  AdaptiveModal
 //
 //  Created by yoshiysh on 2023/09/05.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentHeightModifier: ViewModifier {
+struct ContentHeightViewModifier: ViewModifier {
     let contentHeight: (Double) -> Void
     let safeAreaInsetBottom: (Double) -> Void
 
@@ -31,14 +31,14 @@ extension View {
         contentHeight: @escaping (Double) -> Void,
         safeAreaInsetBottom: @escaping (Double) -> Void
     ) -> some View {
-        modifier(ContentHeightModifier(
+        modifier(ContentHeightViewModifier(
             contentHeight: contentHeight,
             safeAreaInsetBottom: safeAreaInsetBottom
         ))
     }
 }
 
-private extension ContentHeightModifier {
+private extension ContentHeightViewModifier {
     @MainActor
     func contentView(_ content: Content) -> some View {
         content

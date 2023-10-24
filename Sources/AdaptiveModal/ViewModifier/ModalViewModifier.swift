@@ -1,5 +1,5 @@
 //
-//  OvderCurrentContextViewModifier.swift
+//  ModalViewModifier.swift
 //  AdaptiveModal
 //
 //  Created by yoshiysh on 2023/10/03.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OverCurrentContextViewModifier<T: View>: ViewModifier {
+struct ModalViewModifier<T: View>: ViewModifier {
     @Binding private var isPresented: Bool
     private let onDismiss: (() -> Void)?
     private let body: () -> T
@@ -25,7 +25,7 @@ struct OverCurrentContextViewModifier<T: View>: ViewModifier {
     func body(content: Content) -> some View {        
         content
             .background(
-                OvderCurrentContextRepresentable(
+                ModalRepresentable(
                     isPresented: $isPresented,
                     onDismiss: { onDismiss?() },
                     content: body
@@ -41,7 +41,7 @@ extension View {
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> some View
     ) -> some View {
-        modifier(OverCurrentContextViewModifier(
+        modifier(ModalViewModifier(
             isPresented: isPresented,
             onDismiss: onDismiss,
             body: content

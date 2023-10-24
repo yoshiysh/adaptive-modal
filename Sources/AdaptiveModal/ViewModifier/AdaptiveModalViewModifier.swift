@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
     @Binding var isPresented: Bool
-    @State var isPresentedContainer = false
     let body: () -> Body
     let onDismiss: (() -> Void)?
     let draggable: Bool
@@ -32,7 +31,7 @@ struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overCurrentContext(
-                isPresented: $isPresentedContainer,
+                isPresented: $isPresented,
                 onDismiss: {
                     isPresented = false
                     onDismiss?()
@@ -42,14 +41,9 @@ struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
                     isPresented: $isPresented,
                     draggable: draggable,
                     cancelable: cancelable,
-                    onDismiss: { isPresentedContainer = false },
+                    onDismiss: { isPresented = false },
                     content: body
                 )
-            }
-            .onChange(of: isPresented) { value in
-                if !isPresentedContainer {
-                    isPresentedContainer = value
-                }
             }
     }
 }

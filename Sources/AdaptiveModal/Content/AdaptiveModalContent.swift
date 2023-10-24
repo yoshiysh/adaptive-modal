@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AdaptiveModalContent<Content: View>: View {
     @Binding var isPresented: Bool
-    @State var isPresentedContent = false
     @State var opacity = 0.0
     @State var translation: CGSize = .zero
     @State var contentHeight: Double = .zero
@@ -44,7 +43,6 @@ struct AdaptiveModalContent<Content: View>: View {
 
                 withAnimation(.easeOut) {
                     opacity = maxOpacity
-                    isPresentedContent = true
                 }
             }
             .onChange(of: isPresented) { value in
@@ -73,7 +71,7 @@ private extension AdaptiveModalContent {
     func contentView() -> some View {
         ZStack {
             Color.black
-                .opacity(opacity)
+                .opacity(0)
                 .ignoresSafeArea()
                 .onTapGesture {
                     if cancelable {
@@ -81,20 +79,18 @@ private extension AdaptiveModalContent {
                     }
                 }
 
-            if isPresentedContent {
-                VStack {
-                    Spacer()
-                        .frame(minHeight: minHeight())
+            VStack {
+                Spacer()
+                    .frame(minHeight: minHeight())
 
-                    modalView()
-                        .contentHeight(
-                            contentHeight: { contentHeight = $0 },
-                            safeAreaInsetBottom: { safeAreaInsetBottom = $0 }
-                        )
-                        .offset(translation)
-                        .layoutPriority(1)
-                }
-                .transition(.move(edge: .bottom).animation(.smooth))
+                modalView()
+                    .contentHeight(
+                        contentHeight: { contentHeight = $0 },
+                        safeAreaInsetBottom: { safeAreaInsetBottom = $0 }
+                    )
+                    .offset(translation)
+                    .layoutPriority(1)
+                    .transition(.move(edge: .bottom).animation(.smooth))
             }
         }
     }
@@ -130,8 +126,7 @@ private extension AdaptiveModalContent {
 
     @MainActor
     func onEndDismissAnimation() {
-        if isPresentedContent {
-            isPresentedContent = false
+        if isPresented {
             onDismiss()
         }
     }
