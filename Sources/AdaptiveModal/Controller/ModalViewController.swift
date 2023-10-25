@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-class ModalViewController: UIViewController {}
+class ModalViewController: UIViewController {
+    private(set) var modalPresentationController: ModalPresentationController?
+}
 
 // MARK: UIViewControllerTransitioningDelegate
 extension ModalViewController: UIViewControllerTransitioningDelegate {
@@ -16,9 +18,17 @@ extension ModalViewController: UIViewControllerTransitioningDelegate {
         presenting: UIViewController?,
         source: UIViewController
     ) -> UIPresentationController? {
-        ModalPresentationController(
+        let controller = ModalPresentationController(
             presentedViewController: presented,
             presenting: presenting
         )
+        modalPresentationController = controller
+        return controller
+    }
+}
+
+extension ModalViewController {
+    func updateBackground(opacity: Double) {
+        modalPresentationController?.updateBackground(opacity: opacity)
     }
 }

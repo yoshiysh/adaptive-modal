@@ -45,3 +45,9 @@ class ModalPresentationController: UIPresentationController {
         }
     }
 }
+
+extension ModalPresentationController {
+    func updateBackground(opacity: Double) {
+        dimmedView.alpha = opacity
+    }
+}

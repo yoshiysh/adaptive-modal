@@ -7,28 +7,32 @@
 
 import SwiftUI
 
-struct ModalContent<Content: View>: View {
-    @Binding var isPresented: Bool
+protocol ModalContentDelegate {
+    func updateBackground(opacity: Double)
+    func dismiss()
+}
+
+struct ModalContent: View {
     @State var opacity = 0.0
     @State var translation: CGSize = .zero
     @State var contentHeight: Double = .zero
     @State var safeAreaInsetBottom: Double = .zero
 
-    let content: () -> Content
-    let onDismiss: () -> Void
-    let draggable: Bool
-    let cancelable: Bool
+    var delegate: ModalContentDelegate?
 
-    let fraction: CGFloat = 0.95
-    let minOpacity = 0.0
-    let maxOpacity = 0.6
-    var translatedHeight: Double { max(contentHeight + safeAreaInsetBottom, 100) * 1.1 }
+    private let content: AnyView
+    private let draggable: Bool
+    private let cancelable: Bool
+
+    private let fraction: CGFloat = 0.95
+    private let maxOpacity = 0.6
+    private var translatedHeight: Double { max(contentHeight + safeAreaInsetBottom, 100) * 1.1 }
 
     var body: some View {
         contentView()
             .onAnimationCompleted(for: translation.height) {
                 if translation.height >= translatedHeight {
-                    onEndDismissAnimation()
+                    dismiss()
                 }
             } onValueChanged: { value in
                 if !translation.height.isZero {
@@ -38,31 +42,19 @@ struct ModalContent<Content: View>: View {
                     )
                 }
             }
-            .onAppear {
-                translation = .zero
-
-                withAnimation(.easeOut) {
-                    opacity = maxOpacity
-                }
-            }
-            .onChange(of: isPresented) { value in
-                if value { return }
-                onDismissAnimation()
+            .onChange(of: opacity) { value in
+                delegate?.updateBackground(opacity: opacity)
             }
     }
 
     init(
-        isPresented: Binding<Bool>,
         draggable: Bool,
         cancelable: Bool,
-        onDismiss: @escaping () -> Void,
-        content: @escaping () -> Content
+        content: @escaping () -> some View
     ) {
-        _isPresented = isPresented
         self.draggable = draggable
         self.cancelable = cancelable
-        self.onDismiss = onDismiss
-        self.content = content
+        self.content = AnyView(content())
     }
 }
 
@@ -71,11 +63,11 @@ private extension ModalContent {
     func contentView() -> some View {
         ZStack {
             Color.black
-                .opacity(0.01)
+                .opacity(0.0001)
                 .ignoresSafeArea()
                 .onTapGesture {
                     if cancelable {
-                        onDismissAnimation()
+                        dismiss()
                     }
                 }
 
@@ -90,7 +82,6 @@ private extension ModalContent {
                     )
                     .offset(translation)
                     .layoutPriority(1)
-                    .transition(.move(edge: .bottom).animation(.smooth))
             }
         }
     }
@@ -101,7 +92,7 @@ private extension ModalContent {
         if draggable {
             modalContent()
                 .draggableBackground(cancelable: cancelable) {
-                    onEndDismissAnimation()
+                    dismiss()
                 } onTranslationHeightChanged: { value in
                     opacity = min(
                         maxOpacity,
@@ -115,25 +106,13 @@ private extension ModalContent {
     }
 
     @MainActor
-    func onDismissAnimation() {
-        withAnimation(.easeOut) {
-            translation = CGSize(
-                width: .zero,
-                height: translatedHeight
-            )
-        }
-    }
-
-    @MainActor
-    func onEndDismissAnimation() {
-        if isPresented {
-            onDismiss()
-        }
+    func dismiss() {
+        delegate?.dismiss()
     }
 
     @MainActor
     func modalContent() -> some View {
-        content().frame(maxWidth: .infinity)
+        content.frame(maxWidth: .infinity)
     }
 
     @MainActor

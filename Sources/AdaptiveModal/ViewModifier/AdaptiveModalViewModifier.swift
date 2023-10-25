@@ -38,10 +38,8 @@ struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
                 }
             ) {
                 ModalContent(
-                    isPresented: $isPresented,
                     draggable: draggable,
                     cancelable: cancelable,
-                    onDismiss: { isPresented = false },
                     content: body
                 )
             }

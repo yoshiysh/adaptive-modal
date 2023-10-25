@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-struct ModalRepresentable<Content: View> {
-    @Binding private var isPresented: Bool
-    private let onDismiss: () -> Void
-    private let content: () -> Content
+struct ModalRepresentable {
+    @Binding var isPresented: Bool
+    let onDismiss: () -> Void
+    let content: () -> ModalContent
+    let viewController = ModalViewController()
 
     init(
         isPresented: Binding<Bool>,
         onDismiss: @escaping () -> Void,
-        content: @escaping () -> Content
+        content: @escaping () -> ModalContent
     ) {
         _isPresented = isPresented
         self.onDismiss = onDismiss
@@ -27,7 +28,7 @@ struct ModalRepresentable<Content: View> {
 extension ModalRepresentable {
     typealias Coordinator = ModalCoordinator
 
-    func makeCoordinator() -> Coordinator<Content> {
+    func makeCoordinator() -> Coordinator {
         ModalCoordinator(self)
     }
 }
@@ -37,7 +38,7 @@ extension ModalRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = ModalViewController
 
     func makeUIViewController(context: Context) -> UIViewControllerType {
-        ModalViewController()
+        viewController
     }
 
     func updateUIViewController(
@@ -45,16 +46,38 @@ extension ModalRepresentable: UIViewControllerRepresentable {
         context: Context
     ) {
         if isPresented {
-            let hostingController = ModalHostingController(rootView: content())
-            hostingController.transitioningDelegate = uiViewController
-            DispatchQueue.main.async {
-                uiViewController.present(hostingController, animated: true)
-            }
+            present(uiViewController, context: context)
         } else {
-            DispatchQueue.main.async {
-                uiViewController.dismiss(animated: true) {
-                    onDismiss()
-                }
+            dismiss(uiViewController)
+        }
+    }
+
+    func isHostingControllerPresented(_ uiViewController: UIViewControllerType) -> Bool {
+        uiViewController.presentedViewController is UIHostingController<ModalContent>
+    }
+    
+    func present(
+        _ uiViewController: UIViewControllerType,
+        context: Context
+    ) {
+        if isHostingControllerPresented(uiViewController) { return }
+
+        var modalContent = content()
+        modalContent.delegate = context.coordinator
+
+        let hostingController = ModalHostingController(rootView: modalContent)
+        hostingController.transitioningDelegate = uiViewController
+        DispatchQueue.main.async {
+            uiViewController.present(hostingController, animated: true)
+        }
+    }
+    
+    func dismiss(_ uiViewController: UIViewControllerType) {
+        if !isHostingControllerPresented(uiViewController) { return }
+
+        DispatchQueue.main.async {
+            uiViewController.dismiss(animated: true) {
+                onDismiss()
             }
         }
     }

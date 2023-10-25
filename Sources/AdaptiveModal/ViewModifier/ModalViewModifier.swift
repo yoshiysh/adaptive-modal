@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct ModalViewModifier<T: View>: ViewModifier {
+struct ModalViewModifier: ViewModifier {
     @Binding private var isPresented: Bool
     private let onDismiss: (() -> Void)?
-    private let body: () -> T
+    private let body: () -> ModalContent
 
     init(
         isPresented: Binding<Bool>,
         onDismiss: (() -> Void)? = nil,
-        body: @escaping () -> T
+        body: @escaping () -> ModalContent
     ) {
         _isPresented = isPresented
         self.onDismiss = onDismiss
@@ -39,7 +39,7 @@ extension View {
     func modal(
         isPresented: Binding<Bool>,
         onDismiss: (() -> Void)? = nil,
-        @ViewBuilder content: @escaping () -> some View
+        @ViewBuilder content: @escaping () -> ModalContent
     ) -> some View {
         modifier(ModalViewModifier(
             isPresented: isPresented,
