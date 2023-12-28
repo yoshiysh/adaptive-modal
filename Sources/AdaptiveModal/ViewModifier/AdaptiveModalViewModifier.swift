@@ -19,14 +19,14 @@ struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
         isPresented: Binding<Bool>,
         draggable: Bool,
         cancelable: Bool,
-        backgroundColor: Color,
+        backgroundColor: Color?,
         onDismiss: (() -> Void)? = nil,
         content: @escaping () -> Body
     ) {
         _isPresented = isPresented
         self.draggable = draggable
         self.cancelable = cancelable
-        self.backgroundColor = backgroundColor
+        self.backgroundColor = backgroundColor ?? Color(UIColor.secondarySystemBackground)
         self.onDismiss = onDismiss
         self.body = content
     }
