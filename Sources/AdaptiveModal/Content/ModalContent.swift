@@ -23,6 +23,7 @@ struct ModalContent: View {
     private let content: AnyView
     private let draggable: Bool
     private let cancelable: Bool
+    private let backgroundColor: Color
 
     private let fraction: CGFloat = 0.95
     private let maxOpacity = 0.6
@@ -50,10 +51,12 @@ struct ModalContent: View {
     init(
         draggable: Bool,
         cancelable: Bool,
+        backgroundColor: Color,
         content: @escaping () -> some View
     ) {
         self.draggable = draggable
         self.cancelable = cancelable
+        self.backgroundColor = backgroundColor
         self.content = AnyView(content())
     }
 }
@@ -91,7 +94,10 @@ private extension ModalContent {
     func modalView() -> some View {
         if draggable {
             modalContent()
-                .draggableBackground(cancelable: cancelable) {
+                .draggableBackground(
+                    cancelable: cancelable,
+                    backgroundColor: backgroundColor
+                ) {
                     dismiss()
                 } onTranslationHeightChanged: { value in
                     opacity = min(
@@ -101,7 +107,7 @@ private extension ModalContent {
                 }
         } else {
             modalContent()
-                .upperRoundedBackground()
+                .upperRoundedBackground(backgroundColor: backgroundColor)
         }
     }
 

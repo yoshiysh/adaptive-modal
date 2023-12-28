@@ -10,6 +10,7 @@ import SwiftUI
 struct UpperRoundedRectangleViewModifier: ViewModifier {
     @Binding private var offset: CGSize
     private let cornerRadius: CGFloat
+    private let backgroundColor: Color
     
     func body(content: Content) -> some View {
         content
@@ -19,17 +20,19 @@ struct UpperRoundedRectangleViewModifier: ViewModifier {
                     corners: [.topLeft, .topRight]
                 )
                 .offset(offset)
-                .fill(Color(UIColor.secondarySystemBackground))
+                .fill(backgroundColor)
                 .ignoresSafeArea()
             )
     }
 
     init(
         offset: Binding<CGSize>,
-        cornerRadius: CGFloat
+        cornerRadius: CGFloat,
+        backgroundColor: Color
     ) {
         _offset = offset
         self.cornerRadius = cornerRadius
+        self.backgroundColor = backgroundColor
     }
 }
 
@@ -37,12 +40,14 @@ struct UpperRoundedRectangleViewModifier: ViewModifier {
 extension View {
     @MainActor
     func upperRoundedBackground(
+        offset: Binding<CGSize> = .constant(.zero),
         cornerRadius: CGFloat = 16,
-        offset: Binding<CGSize> = .constant(.zero)
+        backgroundColor: Color
     ) -> some View {
         modifier(UpperRoundedRectangleViewModifier(
             offset: offset, 
-            cornerRadius: cornerRadius
+            cornerRadius: cornerRadius,
+            backgroundColor: backgroundColor
         ))
     }
 }

@@ -21,6 +21,7 @@ public extension View {
         isPresented: Binding<Bool>,
         draggable: Bool = true,
         cancelable: Bool = true,
+        backgroundColor: Color = Color(UIColor.secondarySystemBackground),
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> some View
     ) -> some View {
@@ -28,6 +29,7 @@ public extension View {
             isPresented: isPresented,
             draggable: draggable,
             cancelable: cancelable,
+            backgroundColor: backgroundColor,
             onDismiss: onDismiss,
             content: content
         ))
@@ -50,6 +52,7 @@ public extension View {
         item: Binding<Item?>,
         draggable: Bool = true,
         cancelable: Bool = true,
+        backgroundColor: Color = Color(UIColor.secondarySystemBackground),
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping (Item) -> some View
     ) -> some View {
@@ -60,6 +63,7 @@ public extension View {
             ),
             draggable: draggable,
             cancelable: cancelable,
+            backgroundColor: backgroundColor,
             onDismiss: onDismiss,
             content: {
                 Group {
