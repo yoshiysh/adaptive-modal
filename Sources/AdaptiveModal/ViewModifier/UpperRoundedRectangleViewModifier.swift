@@ -46,7 +46,7 @@ struct UpperRoundedRectangleViewModifier: ViewModifier {
     }
 }
 
-// MARK: View Extension
+// MARK: - View Extension
 extension View {
     func upperRoundedBackground(
         offset: Binding<CGSize> = .constant(.zero),

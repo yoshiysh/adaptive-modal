@@ -65,7 +65,7 @@ struct DraggableBackgroundViewModifier: ViewModifier {
     }
 }
 
-// MARK: View Extension
+// MARK: - View Extension
 extension View {
     func draggableBackground(
         cancelable: Bool,
@@ -80,7 +80,7 @@ extension View {
     }
 }
 
-// MARK: Private DragGesture.Value Extension
+// MARK: - Private DragGesture.Value Extension
 private extension DragGesture.Value {
     func calculationTranslation() -> CGSize {
         if translation.height < 0.0 {

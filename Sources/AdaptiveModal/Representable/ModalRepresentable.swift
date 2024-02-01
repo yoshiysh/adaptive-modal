@@ -12,7 +12,6 @@ struct ModalRepresentable<Content: View> {
     
     let onDismiss: () -> Void
     let content: () -> Content
-    let viewController = ModalViewController()
 
     init(
         onDismiss: @escaping () -> Void,
@@ -23,27 +22,12 @@ struct ModalRepresentable<Content: View> {
     }
 }
 
-// MARK: - Coordinator
-extension ModalRepresentable {
-    final class Coordinator: NSObject {
-        private let parent: ModalRepresentable
-
-        init(_ parent: ModalRepresentable) {
-            self.parent = parent
-        }
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-}
-
 // MARK: - UIViewControllerRepresentable
 extension ModalRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = ModalViewController
 
     func makeUIViewController(context: Context) -> UIViewControllerType {
-        viewController
+        ModalViewController()
     }
 
     func updateUIViewController(
@@ -70,7 +54,7 @@ extension ModalRepresentable: UIViewControllerRepresentable {
         guard var rootView = content() as? ModalContent else {
             fatalError("Content is invalid.")
         }
-        rootView.delegate = context.coordinator
+        rootView.delegate = uiViewController
 
         let hostingController = ModalHostingController(rootView: rootView)
         hostingController.transitioningDelegate = uiViewController
@@ -87,13 +71,5 @@ extension ModalRepresentable: UIViewControllerRepresentable {
                 onDismiss()
             }
         }
-    }
-}
-
-// MARK: - ModalContentDelegate
-extension ModalRepresentable.Coordinator: ModalContentDelegate {
-    func updateBackground(opacity: Double) {
-        if !parent.isPresented { return }
-        parent.viewController.updateBackground(opacity: opacity)
     }
 }

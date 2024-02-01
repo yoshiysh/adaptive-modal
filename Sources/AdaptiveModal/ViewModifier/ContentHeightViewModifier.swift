@@ -24,7 +24,7 @@ struct ContentHeightViewModifier: ViewModifier {
     }
 }
 
-// MARK: View Extension
+// MARK: - View Extension
 extension View {
     func contentHeight(
         contentHeight: @escaping (Double) -> Void,
