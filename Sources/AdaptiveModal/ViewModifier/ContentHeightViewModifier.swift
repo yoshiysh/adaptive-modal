@@ -26,7 +26,6 @@ struct ContentHeightViewModifier: ViewModifier {
 
 // MARK: View Extension
 extension View {
-    @MainActor
     func contentHeight(
         contentHeight: @escaping (Double) -> Void,
         safeAreaInsetBottom: @escaping (Double) -> Void
@@ -39,7 +38,6 @@ extension View {
 }
 
 private extension ContentHeightViewModifier {
-    @MainActor
     func contentView(_ content: Content) -> some View {
         content
             .background(

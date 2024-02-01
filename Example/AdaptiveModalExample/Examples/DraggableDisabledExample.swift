@@ -17,10 +17,7 @@ struct DraggableDisabledExample: View {
             Text("Show Adaptive Modal")
         }
         .navigationTitle("Draggable Disabled Example")
-        .adaptiveModal(
-            isPresented: $isPresented,
-            draggable: false
-        ) {
+        .adaptiveModal(isPresented: $isPresented) {
             VStack {
                 Color.gray
                     .frame(width: 50, height: 4)
@@ -39,6 +36,7 @@ struct DraggableDisabledExample: View {
                 }
             }
             .frame(height: 300)
+            .modalDraggableDisabled()
         }
     }
 }

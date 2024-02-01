@@ -13,7 +13,6 @@ struct DraggableBackgroundViewModifier: ViewModifier {
     @State private var safeAreaInsetBottom: Double = .zero
 
     private let cancelable: Bool
-    private let backgroundColor: Color
     private let onDismiss: () -> Void
     private let onTranslationHeightChanged: (Double) -> Void
     private var translatedHeight: Double { max(contentHeight + safeAreaInsetBottom, 100) * 1.1 }
@@ -25,10 +24,7 @@ struct DraggableBackgroundViewModifier: ViewModifier {
                 safeAreaInsetBottom: { safeAreaInsetBottom = $0 }
             )
             .offset(translation.height > 0 ? translation : .zero)
-            .upperRoundedBackground(
-                offset: $translation,
-                backgroundColor: backgroundColor
-            )
+            .upperRoundedBackground(offset: $translation)
             .gesture(
                 DragGesture()
                     .onChanged { gesture in
@@ -60,12 +56,10 @@ struct DraggableBackgroundViewModifier: ViewModifier {
     
     init(
         cancelable: Bool,
-        backgroundColor: Color,
         onDismiss: @escaping () -> Void,
         onTranslationHeightChanged: @escaping (Double) -> Void
     ) {
         self.cancelable = cancelable
-        self.backgroundColor = backgroundColor
         self.onDismiss = onDismiss
         self.onTranslationHeightChanged = onTranslationHeightChanged
     }
@@ -73,16 +67,13 @@ struct DraggableBackgroundViewModifier: ViewModifier {
 
 // MARK: View Extension
 extension View {
-    @MainActor
     func draggableBackground(
         cancelable: Bool,
-        backgroundColor: Color,
         onDismiss: @escaping () -> Void,
         onTranslationHeightChanged: @escaping (Double) -> Void
     ) -> some View {
         modifier(DraggableBackgroundViewModifier(
             cancelable: cancelable,
-            backgroundColor: backgroundColor,
             onDismiss: onDismiss,
             onTranslationHeightChanged: onTranslationHeightChanged
         ))

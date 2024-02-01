@@ -13,6 +13,9 @@ protocol ModalContentDelegate {
 }
 
 struct ModalContent: View {
+    @State var cancelable = ModalInteractiveDismissDisabled.defaultValue
+    @State var draggable = ModalDraggableDisabled.defaultValue
+
     @State var opacity = 0.0
     @State var translation: CGSize = .zero
     @State var contentHeight: Double = .zero
@@ -21,9 +24,6 @@ struct ModalContent: View {
     var delegate: ModalContentDelegate?
 
     private let content: AnyView
-    private let draggable: Bool
-    private let cancelable: Bool
-    private let backgroundColor: Color
 
     private let fraction: CGFloat = 0.95
     private let maxOpacity = 0.6
@@ -46,23 +46,20 @@ struct ModalContent: View {
             .onChange(of: opacity) { value in
                 delegate?.updateBackground(opacity: opacity)
             }
+            .onPreferenceChange(ModalInteractiveDismissDisabled.self) { value in
+                cancelable = !value
+            }
+            .onPreferenceChange(ModalDraggableDisabled.self) { value in
+                draggable = !value
+            }
     }
 
-    init(
-        draggable: Bool,
-        cancelable: Bool,
-        backgroundColor: Color,
-        content: @escaping () -> some View
-    ) {
-        self.draggable = draggable
-        self.cancelable = cancelable
-        self.backgroundColor = backgroundColor
+    init(content: @escaping () -> some View) {
         self.content = AnyView(content())
     }
 }
 
 private extension ModalContent {
-    @MainActor
     func contentView() -> some View {
         ZStack {
             Color.black
@@ -89,15 +86,11 @@ private extension ModalContent {
         }
     }
     
-    @MainActor
     @ViewBuilder
     func modalView() -> some View {
         if draggable {
             modalContent()
-                .draggableBackground(
-                    cancelable: cancelable,
-                    backgroundColor: backgroundColor
-                ) {
+                .draggableBackground(cancelable: cancelable) {
                     dismiss()
                 } onTranslationHeightChanged: { value in
                     opacity = min(
@@ -107,26 +100,22 @@ private extension ModalContent {
                 }
         } else {
             modalContent()
-                .upperRoundedBackground(backgroundColor: backgroundColor)
+                .upperRoundedBackground()
         }
     }
 
-    @MainActor
     func dismiss() {
         delegate?.dismiss()
     }
 
-    @MainActor
     func modalContent() -> some View {
         content.frame(maxWidth: .infinity)
     }
 
-    @MainActor
     func maxHeight() -> CGFloat {
         UIScreen.main.bounds.height * fraction
     }
 
-    @MainActor
     func minHeight() -> CGFloat {
         UIScreen.main.bounds.height - maxHeight()
     }

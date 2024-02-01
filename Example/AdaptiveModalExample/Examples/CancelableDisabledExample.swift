@@ -17,10 +17,7 @@ struct CancelableDisabledExample: View {
             Text("Show Adaptive Modal")
         }
         .navigationTitle("Cancelable Disabled Example")
-        .adaptiveModal(
-            isPresented: $isPresented,
-            cancelable: false
-        ) {
+        .adaptiveModal(isPresented: $isPresented) {
             VStack {
                 LongText()
                     .frame(maxHeight: 200)
@@ -30,6 +27,7 @@ struct CancelableDisabledExample: View {
                     isPresented = false
                 }
             }
+            .modalInteractiveDismissDisabled()
         }
     }
 }
