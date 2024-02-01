@@ -25,13 +25,10 @@ struct AdaptiveModalViewModifier<Body: View>: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .modal(
-                isPresented: $isPresented,
-                onDismiss: {
-                    isPresented = false
-                    onDismiss?()
-                }
-            ) {
+            .modal(isPresented: $isPresented) {
+                isPresented = false
+                onDismiss?()
+            } content: {
                 ModalContent(content: body)
             }
     }

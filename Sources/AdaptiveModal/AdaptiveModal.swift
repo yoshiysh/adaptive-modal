@@ -40,10 +40,7 @@ public extension View {
         @ViewBuilder content: @escaping (Item) -> some View
     ) -> some View {
         adaptiveModal(
-            isPresented: .init(
-                get: { item.wrappedValue != nil },
-                set: { _ in item.wrappedValue = nil }
-            ),
+            isPresented: item.isPresent(),
             onDismiss: onDismiss,
             content: {
                 Group {
