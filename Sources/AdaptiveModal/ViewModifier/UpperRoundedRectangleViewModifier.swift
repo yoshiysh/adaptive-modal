@@ -10,7 +10,7 @@ import SwiftUI
 struct UpperRoundedRectangleViewModifier: ViewModifier {
     @State private var backgroundColor: Color = {
         guard let defaultValue = ModalBackgroundColor.defaultValue else {
-            fatalError("Require Default Value")
+            fatalError("Require default value.")
         }
         return defaultValue
     }()

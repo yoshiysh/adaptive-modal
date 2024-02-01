@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct ModalViewModifier: ViewModifier {
+struct ModalViewModifier<Body: View>: ViewModifier {
     private let onDismiss: (() -> Void)?
-    private let body: () -> ModalContent
+    private let body: () -> Body
 
     init(
         onDismiss: (() -> Void)? = nil,
-        body: @escaping () -> ModalContent
+        body: @escaping () -> Body
     ) {
         self.onDismiss = onDismiss
         self.body = body
@@ -34,7 +34,7 @@ struct ModalViewModifier: ViewModifier {
 extension View {
     func modal(
         onDismiss: (() -> Void)? = nil,
-        @ViewBuilder content: @escaping () -> ModalContent
+        @ViewBuilder content: @escaping () -> some View
     ) -> some View {
         modifier(ModalViewModifier(
             onDismiss: onDismiss,

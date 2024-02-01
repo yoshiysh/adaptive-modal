@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct ModalRepresentable {
+struct ModalRepresentable<Content: View> {
     @Environment(\.isModalPresented) @Binding var isPresented
     
     let onDismiss: () -> Void
-    let content: () -> ModalContent
+    let content: () -> Content
     let viewController = ModalViewController()
 
     init(
         onDismiss: @escaping () -> Void,
-        content: @escaping () -> ModalContent
+        content: @escaping () -> Content
     ) {
         self.onDismiss = onDismiss
         self.content = content
@@ -25,10 +25,16 @@ struct ModalRepresentable {
 
 // MARK: - Coordinator
 extension ModalRepresentable {
-    typealias Coordinator = ModalCoordinator
+    final class Coordinator: NSObject {
+        private let parent: ModalRepresentable
 
+        init(_ parent: ModalRepresentable) {
+            self.parent = parent
+        }
+    }
+    
     func makeCoordinator() -> Coordinator {
-        ModalCoordinator(self)
+        Coordinator(self)
     }
 }
 
@@ -60,11 +66,13 @@ extension ModalRepresentable: UIViewControllerRepresentable {
         context: Context
     ) {
         if isHostingControllerPresented(uiViewController) { return }
+        
+        guard var rootView = content() as? ModalContent else {
+            fatalError("Content is invalid.")
+        }
+        rootView.delegate = context.coordinator
 
-        var modalContent = content()
-        modalContent.delegate = context.coordinator
-
-        let hostingController = ModalHostingController(rootView: modalContent)
+        let hostingController = ModalHostingController(rootView: rootView)
         hostingController.transitioningDelegate = uiViewController
         DispatchQueue.main.async {
             uiViewController.present(hostingController, animated: true)
@@ -79,5 +87,13 @@ extension ModalRepresentable: UIViewControllerRepresentable {
                 onDismiss()
             }
         }
+    }
+}
+
+// MARK: - ModalContentDelegate
+extension ModalRepresentable.Coordinator: ModalContentDelegate {
+    func updateBackground(opacity: Double) {
+        if !parent.isPresented { return }
+        parent.viewController.updateBackground(opacity: opacity)
     }
 }
