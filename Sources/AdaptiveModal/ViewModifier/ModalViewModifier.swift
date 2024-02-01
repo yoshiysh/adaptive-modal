@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct ModalViewModifier: ViewModifier {
-    @Binding private var isPresented: Bool
     private let onDismiss: (() -> Void)?
     private let body: () -> ModalContent
 
     init(
-        isPresented: Binding<Bool>,
         onDismiss: (() -> Void)? = nil,
         body: @escaping () -> ModalContent
     ) {
-        _isPresented = isPresented
         self.onDismiss = onDismiss
         self.body = body
     }
@@ -26,7 +23,6 @@ struct ModalViewModifier: ViewModifier {
         content
             .background(
                 ModalRepresentable(
-                    isPresented: $isPresented,
                     onDismiss: { onDismiss?() },
                     content: body
                 )
@@ -37,12 +33,10 @@ struct ModalViewModifier: ViewModifier {
 // MARK: - View Extension
 extension View {
     func modal(
-        isPresented: Binding<Bool>,
         onDismiss: (() -> Void)? = nil,
         @ViewBuilder content: @escaping () -> ModalContent
     ) -> some View {
         modifier(ModalViewModifier(
-            isPresented: isPresented,
             onDismiss: onDismiss,
             body: content
         ))

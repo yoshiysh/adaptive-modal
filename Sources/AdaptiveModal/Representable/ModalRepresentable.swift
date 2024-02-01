@@ -8,17 +8,16 @@
 import SwiftUI
 
 struct ModalRepresentable {
-    @Binding var isPresented: Bool
+    @Environment(\.isModalPresented) @Binding var isPresented
+    
     let onDismiss: () -> Void
     let content: () -> ModalContent
     let viewController = ModalViewController()
 
     init(
-        isPresented: Binding<Bool>,
         onDismiss: @escaping () -> Void,
         content: @escaping () -> ModalContent
     ) {
-        _isPresented = isPresented
         self.onDismiss = onDismiss
         self.content = content
     }

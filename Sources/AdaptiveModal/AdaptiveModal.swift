@@ -19,10 +19,10 @@ public extension View {
         @ViewBuilder content: @escaping () -> some View
     ) -> some View {
         modifier(AdaptiveModalViewModifier(
-            isPresented: isPresented,
             onDismiss: onDismiss,
             content: content
         ))
+        .environment(\.isModalPresented, isPresented)
     }
 
     /// - Parameters:
@@ -43,10 +43,8 @@ public extension View {
             isPresented: item.isPresent(),
             onDismiss: onDismiss,
             content: {
-                Group {
-                    if let wrappedValue = item.wrappedValue {
-                        content(wrappedValue)
-                    }
+                if let wrappedValue = item.wrappedValue {
+                    content(wrappedValue)
                 }
             }
         )

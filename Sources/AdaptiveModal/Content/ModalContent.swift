@@ -9,10 +9,11 @@ import SwiftUI
 
 protocol ModalContentDelegate {
     func updateBackground(opacity: Double)
-    func dismiss()
 }
 
 struct ModalContent: View {
+    @Environment(\.presentationMode) @Binding var presentationMode
+    
     @State var cancelable = ModalInteractiveDismissDisabled.defaultValue
     @State var draggable = ModalDraggableDisabled.defaultValue
 
@@ -23,6 +24,7 @@ struct ModalContent: View {
 
     var delegate: ModalContentDelegate?
 
+    private let onDismiss: () -> Void
     private let content: AnyView
 
     private let fraction: CGFloat = 0.95
@@ -54,7 +56,11 @@ struct ModalContent: View {
             }
     }
 
-    init(content: @escaping () -> some View) {
+    init(
+        onDismiss: @escaping () -> Void,
+        content: @escaping () -> some View
+    ) {
+        self.onDismiss = onDismiss
         self.content = AnyView(content())
     }
 }
@@ -105,7 +111,8 @@ private extension ModalContent {
     }
 
     func dismiss() {
-        delegate?.dismiss()
+        if !presentationMode.isPresented { return }
+        onDismiss()
     }
 
     func modalContent() -> some View {
